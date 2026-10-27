@@ -11,7 +11,7 @@ npm run build    # type-check + production build (Vercel runs this)
 ## Where things live
 - **Business facts**: `src/data/site.ts` (rates, services, FAQs, process steps, address, contact details, form endpoint, reviews). `null`/empty values render honest "being confirmed" states.
 - **Logo**: `public/brand/` (SVG masters plus PNG/WebP exports and favicons). Rebuilt as clean Bézier curves from the client's raster by `scripts/logo/` (see below). The client-uploaded pack (pixel-stepped traces) is kept untouched in `brand-source-uploaded-pack-v2/` for reference and is not deployed.
-- **Type**: Fredoka (display, echoes the chunky rounded wordmark) and Albert Sans (body/UI), both OFL via Fontsource.
+- **Type**: Plus Jakarta Sans (display) and Nunito Sans (body), both OFL via Fontsource.
 - **Hero bricks**: `src/components/BrickMark.tsx` uses the traced brick parts (`brickPaths.ts`, generated).
 
 ## Rebuilding the logo

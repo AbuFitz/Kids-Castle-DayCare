@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Arrow, Photo, Words } from '../components/Motion';
+import { Arrow, Words } from '../components/Motion';
 import { site } from '../data/site';
 
 const careTypes = ['Home nursery (East London)', 'Babysitting (North London)', 'Nanny care (North London)', 'Not sure yet'] as const;
@@ -49,16 +49,15 @@ export default function Contact() {
 
   return (
     <>
-      <section className="page-head" style={{ paddingBottom: 24 }}>
+      <section className="page-head page-head--yellow">
         <div className="wrap">
           <h1><Words text="Get in touch" immediate /></h1>
           <p className="lead">Tell us about your family and the care you need. We’ll come back to you about availability.</p>
         </div>
       </section>
-      <section className="section" style={{ paddingTop: 24 }}>
+      <section className="section">
         <div className="wrap contact-grid">
           <div className="contact-side">
-            <Photo src="/images/play.webp" alt="Children laughing while holding up painted crafts" ratio="4 / 3" position="35% center" />
             <div className="info-list">
               <div className="info-card"><h3>Home nursery</h3><p>{site.nursery.showFullAddress ? `${site.nursery.address.line1}, ${site.nursery.address.area}, ${site.nursery.address.city} ${site.nursery.address.postcode}` : site.nursery.area}. {site.nursery.status}</p></div>
               <div className="info-card"><h3>Babysitting &amp; nannies</h3><p>{site.homeVisits.area}. {site.homeVisits.note}</p></div>

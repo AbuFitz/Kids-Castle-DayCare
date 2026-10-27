@@ -95,5 +95,7 @@ files = {
  '08-icon-navy': build('icon', mono=C['navy']),
  '09-icon-white': build('icon', mono='#ffffff'),
  '10-horizontal-white': build('horizontal', mono='#ffffff', descriptor='DAYCARE & HOME NURSERY'),
+ '11-wordmark-white': build('wordmark', mono='#ffffff'),
+ '12-wordmark-navy': build('wordmark', mono=C['navy']),
 }
 for k, v in files.items(): open(f'{OUT}/{k}.svg', 'w').write(v); print(k, len(v))

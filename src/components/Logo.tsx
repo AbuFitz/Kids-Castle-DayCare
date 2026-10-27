@@ -1,6 +1,8 @@
 /** Production logo set lives in /public/brand (rebuilt as clean vector curves from the client's artwork; see scripts/logo). */
-type Props = { variant?: 'horizontal' | 'full' | 'icon' | 'horizontal-white' | 'full-white'; className?: string };
+type Props = { variant?: 'wordmark' | 'wordmark-white' | 'horizontal' | 'full' | 'icon' | 'horizontal-white' | 'full-white'; className?: string };
 const files = {
+  wordmark: '/brand/05-wordmark.svg',
+  'wordmark-white': '/brand/11-wordmark-white.svg',
   horizontal: '/brand/03-horizontal.svg',
   'horizontal-white': '/brand/10-horizontal-white.svg',
   full: '/brand/02-full-daycare-and-home-nursery.svg',

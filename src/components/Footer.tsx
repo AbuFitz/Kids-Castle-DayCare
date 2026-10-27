@@ -8,7 +8,7 @@ export function Footer() {
       <div className="wrap">
         <div className="footer-grid">
           <div className="footer-brand">
-            <Link to="/" aria-label="Kids Castle home"><Logo variant="horizontal-white" /></Link>
+            <Link to="/" aria-label="Kids Castle home"><Logo variant="full" /></Link>
             <p>{site.intro}</p>
           </div>
           <div className="footer-cols">

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { Arrow, Photo, Words } from '../components/Motion';
+import { Arrow, ScrollMarquee, ScrollWords, Words } from '../components/Motion';
+import { BrickMark } from '../components/BrickMark';
 import { ServiceCarousel } from '../components/ServiceCarousel';
 import { Steps } from '../components/Steps';
 import { Rates } from '../components/Rates';
@@ -20,40 +21,38 @@ export default function Home() {
             </h1>
             <motion.p className="hero-sub" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8, duration: 0.8 }}>{site.intro}</motion.p>
             <motion.div className="hero-cta" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.95, duration: 0.8 }}>
-              <Link to="/contact" className="btn">Send an enquiry<Arrow /></Link>
-              <Link to="/services" className="btn btn--ghost">See our services</Link>
+              <Link to="/contact" className="btn btn--navy">Send an enquiry<Arrow /></Link>
+              <Link to="/services" className="btn btn--outline">See our services</Link>
             </motion.div>
           </div>
-          <Photo src="/images/play.webp" alt="Children laughing as they hold up painted crafts at a table" ratio="5 / 4" className="hero-photo" priority position="35% center" />
+          <BrickMark className="hero-bricks" />
         </div>
+        <div className="ways">
+          <Link to="/services" className="way way--teal">
+            <span className="way-area">East London</span>
+            <strong>Home nursery</strong>
+            <span>Bethnal Green. {site.nursery.status}</span>
+            <Arrow />
+          </Link>
+          <Link to="/services" className="way way--blue">
+            <span className="way-area">North London</span>
+            <strong>Babysitting and nanny care</strong>
+            <span>In your own home, arranged around your family.</span>
+            <Arrow />
+          </Link>
+        </div>
+      </section>
+
+      <section className="section" aria-labelledby="story-title">
         <div className="wrap">
-          <div className="two-ways">
-            <Link to="/services" className="way way--teal">
-              <span className="way-area">East London</span>
-              <strong>Home nursery</strong>
-              <span>Bethnal Green. {site.nursery.status}</span>
-            </Link>
-            <Link to="/services" className="way way--blue">
-              <span className="way-area">North London</span>
-              <strong>Babysitting and nanny care</strong>
-              <span>In your own home, arranged around your family.</span>
-            </Link>
-          </div>
+          <h2 id="story-title" className="visually-hidden">About Kids Castle</h2>
+          {/* PROVISIONAL draft copy based on verified facts only; owner biography to be added once supplied. */}
+          <ScrollWords className="statement" text="A home nursery in Bethnal Green, and babysitters and nannies in your own home across North London. Every arrangement is shaped around the family it is for." />
+          <p style={{ marginTop: 32 }}><Link to="/about" className="btn btn--outline-dark">About Kids Castle<Arrow /></Link></p>
         </div>
       </section>
 
-      <section className="section section--tight" aria-labelledby="story-title">
-        <div className="wrap split">
-          <Photo src="/images/reading.webp" alt="A carer reading a picture book to a group of young children on the floor" ratio="4 / 3" />
-          <div>
-            <h2 id="story-title" className="h-section"><Words text="Two ways to care, one approach" /></h2>
-            {/* PROVISIONAL draft copy based on verified facts only; owner biography to be added once supplied. */}
-            <p className="lead">Kids Castle offers a home nursery setting in Bethnal Green, East London, and babysitting and nanny services in your own home across North London. Every arrangement is shaped around the family it is for.</p>
-            <Link to="/about" className="btn btn--ghost">About Kids Castle<Arrow /></Link>
-          </div>
-        </div>
-      </section>
-
+      <ScrollMarquee items={['Little moments', 'Big beginnings']} />
       <ServiceCarousel />
       <Steps />
       <Rates />

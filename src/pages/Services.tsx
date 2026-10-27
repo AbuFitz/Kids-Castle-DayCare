@@ -7,13 +7,13 @@ import { services } from '../data/site';
 export default function Services() {
   return (
     <>
-      <section className="page-head">
+      <section className="page-head page-head--blue">
         <div className="wrap">
           <h1><Words text="Our services" immediate /></h1>
           <p className="lead">Home nursery care in East London, and babysitting and nanny services in North London.</p>
         </div>
       </section>
-      <section className="section section--tight">
+      <section className="section">
         <div className="wrap svc-grid">
           {services.map((s) => (
             <article key={s.id} className={`svc-tile t-${s.tone}`}>

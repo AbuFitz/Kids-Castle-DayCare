@@ -1,7 +1,8 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
-import '@fontsource-variable/figtree';
+import '@fontsource-variable/fredoka';
+import '@fontsource-variable/albert-sans';
 import './styles.css';
 import App from './App';
 

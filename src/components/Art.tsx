@@ -20,19 +20,26 @@ export function Scene({ i = 0, big = false }: { i?: number; big?: boolean }) {
   const n = '#1E293B';
   const cx = 150 + (i % 3) * 50;
   const blocks = big
-    ? [[110,200,70,70,0],[190,200,70,70,1],[270,200,70,70,3],[150,130,70,70,2],[230,130,70,70,4],[190,60,70,70,0]]
+    ? [[330,230,70,70,0],[410,230,70,70,1],[490,230,70,70,3],[370,160,70,70,2],[450,160,70,70,4],[410,90,70,70,0]]
     : [[cx-60,200,56,56,(i)%5],[cx,200,56,56,(i+1)%5],[cx+60,200,56,56,(i+3)%5],[cx-30,144,56,56,(i+2)%5],[cx+30,144,56,56,(i+4)%5]];
   return (
-    <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <svg viewBox={big ? '0 0 800 340' : '0 0 400 300'} preserveAspectRatio="xMidYMid slice" aria-hidden="true">
       <defs><linearGradient id={id} x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor={a} /><stop offset="1" stopColor={b} /></linearGradient></defs>
-      <rect width="400" height="300" fill={`url(#${id})`} />
-      <circle cx={i % 2 ? 330 : 70} cy="60" r="34" fill="#F6BE22" stroke={n} strokeWidth="3" />
+      <rect width={big ? 800 : 400} height="340" fill={`url(#${id})`} />
+      {big && (
+        <g stroke={n} strokeWidth="3" strokeLinejoin="round">
+          <g fill="#fff"><path d="M560 56 q10-26 36-14 q22-14 34 8 q18 2 14 20 h-86 q-8-8 2-14z" /><path d="M640 130 q8-18 28-10 q16-8 24 8 q12 2 10 14 h-60 q-6-6-2-12z" /></g>
+          <circle cx="700" cy="70" r="0" />
+          {[[40,236,52,0],[96,236,52,3],[68,184,52,2],[690,236,52,1],[746,236,52,4],[718,184,52,0]].map(([x,y,w,c],k)=>(<g key={k} transform={`translate(${x} ${y})`}><rect width={w} height={w} rx="10" fill={BLOCKS[c as number]} /><circle cx={(w as number)/2} cy={(w as number)/2} r="8" fill="none" opacity=".45" /></g>))}
+        </g>
+      )}
+      <circle cx={big ? 120 : i % 2 ? 330 : 70} cy="60" r="34" fill="#F6BE22" stroke={n} strokeWidth="3" />
       <g fill="#fff" stroke={n} strokeWidth="3">
         <path d="M250 70 q10-26 36-14 q22-14 34 8 q18 2 14 20 h-86 q-8-8 2-14z" />
         <path d="M30 120 q8-18 28-10 q16-8 24 8 q12 2 10 14 h-60 q-6-6-2-12z" />
       </g>
-      <path d="M-10 270 Q100 190 220 245 T420 230 V310 H-10Z" fill={h1} stroke={n} strokeWidth="3" />
-      <path d="M-10 290 Q130 235 260 280 T420 270 V310 H-10Z" fill={h2} stroke={n} strokeWidth="3" />
+      <path d={big ? 'M-10 280 Q200 200 420 262 T820 240 V360 H-10Z' : 'M-10 270 Q100 190 220 245 T420 230 V310 H-10Z'} fill={h1} stroke={n} strokeWidth="3" />
+      <path d={big ? 'M-10 310 Q260 250 520 300 T820 285 V360 H-10Z' : 'M-10 290 Q130 235 260 280 T420 270 V310 H-10Z'} fill={h2} stroke={n} strokeWidth="3" />
       <g stroke={n} strokeWidth="3" strokeLinejoin="round">
         {blocks.map(([x, y, w, h, c], k) => (
           <g key={k} transform={`translate(${x} ${y + (big ? 0 : 20)})`}>
@@ -40,17 +47,17 @@ export function Scene({ i = 0, big = false }: { i?: number; big?: boolean }) {
             <circle cx={(w as number) / 2} cy={(h as number) / 2} r={(w as number) / 6} fill="none" opacity=".45" />
           </g>
         ))}
-        {big && <path d="M222 60 V20 l40 12 -40 12" fill="#F36C38" />}
+        {big && <path d="M442 90 V48 l42 12 -42 12" fill="#F36C38" />}
       </g>
     </svg>
   );
 }
 
-export function ImageSlot({ scene = 0, mask, className = '', big, label }: { scene?: number; mask?: 'blob1' | 'blob2' | 'heart' | 'round'; className?: string; big?: boolean; label?: string }) {
+export function ImageSlot({ scene = 0, mask, className = '', big, label, src, alt = '' }: { scene?: number; mask?: 'blob1' | 'blob2' | 'heart' | 'round'; className?: string; big?: boolean; label?: string; src?: string; alt?: string }) {
   return (
     <div className={`slot ${className}`} data-replace-with={label ?? 'client-photo'}>
       <div className={`mask ${mask ? `mask-${mask}` : ''}`} style={{ height: '100%' }}>
-        <Scene i={scene} big={big} />
+        {src ? <img src={src} alt={alt} loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : <Scene i={scene} big={big} />}
       </div>
     </div>
   );

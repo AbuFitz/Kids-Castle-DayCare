@@ -74,13 +74,12 @@ export function BlockPile({ seed = 0 }: { seed?: number }) {
     return { left: 6 + ((i * 17 + seed * 9) % 78), size: 38 + Math.floor(f * 26), rot: (f - 0.5) * 50, bottom: Math.floor(i / 3) * 40 + 6 + f * 8, c: COLORS[(i + seed) % 5] };
   });
   return (
-    <div className="block-pile" aria-hidden="true">
+    <motion.div className="block-pile" aria-hidden="true" initial="hide" whileInView="show" viewport={{ once: true, margin: '0px 0px -10% 0px' }}>
       {blocks.map((b, i) => (
         <motion.span key={i} className="block" style={{ left: `${b.left}%`, bottom: b.bottom, width: b.size, height: b.size, background: b.c }}
-          initial={{ y: -320, rotate: 0, opacity: 0 }} whileInView={{ y: 0, rotate: b.rot, opacity: 1 }} viewport={{ once: true, margin: '0px 0px -10% 0px' }}
-          transition={{ type: 'spring', stiffness: 150, damping: 11, mass: 0.9, delay: 0.15 + i * 0.1 }} />
+          variants={{ hide: { y: -320, rotate: 0, opacity: 0 }, show: { y: 0, rotate: b.rot, opacity: 1, transition: { type: 'spring', stiffness: 150, damping: 11, mass: 0.9, delay: 0.15 + i * 0.1 } } }} />
       ))}
-    </div>
+    </motion.div>
   );
 }
 

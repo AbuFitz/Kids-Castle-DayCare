@@ -18,16 +18,16 @@ export default function Services() {
       </section>
       <section className="section" style={{ paddingTop: 36 }}>
         <div className="wrap">
-          <ul className="svc-grid" style={{ listStyle: 'none', margin: 0, padding: 0 }}>
+          <div className="svc-grid">
             {services.map((s, i) => (
               <Reveal key={s.id} delay={(i % 3) * 0.08}>
-                <li className="svc-tile">
+                <article className="svc-tile">
                   <ImageSlot scene={s.scene} mask="blob1" label={`service-${s.id}`} />
                   <div className="body"><span className="pill" style={{ background: 'var(--paper)' }}>{s.area}</span><h3>{s.title}</h3><p>{s.text}</p></div>
-                </li>
+                </article>
               </Reveal>
             ))}
-          </ul>
+          </div>
         </div>
       </section>
       <section className="section section--paper" aria-labelledby="rt">

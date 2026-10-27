@@ -1,11 +1,12 @@
+import { Suspense, lazy } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'motion/react';
+import { m } from 'motion/react';
 import { Arrow, ScrollMarquee, ScrollWords, Words } from '../components/Motion';
 import { BrickMark } from '../components/BrickMark';
-import { ServiceCarousel } from '../components/ServiceCarousel';
+const ServiceCarousel = lazy(() => import('../components/ServiceCarousel').then((m) => ({ default: m.ServiceCarousel })));
 import { Steps } from '../components/Steps';
 import { Rates } from '../components/Rates';
-import { Faq } from '../components/Faq';
+const Faq = lazy(() => import('../components/Faq').then((m) => ({ default: m.Faq })));
 import { Cta } from '../components/Cta';
 import { site } from '../data/site';
 
@@ -19,11 +20,11 @@ export default function Home() {
               <span className="line"><Words text="Little moments." immediate delay={0.15} /></span>
               <span className="line"><Words text="Big beginnings." immediate delay={0.4} /></span>
             </h1>
-            <motion.p className="hero-sub" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8, duration: 0.8 }}>{site.intro}</motion.p>
-            <motion.div className="hero-cta" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.95, duration: 0.8 }}>
+            <m.p className="hero-sub" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8, duration: 0.8 }}>{site.intro}</m.p>
+            <m.div className="hero-cta" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.95, duration: 0.8 }}>
               <Link to="/contact" className="btn btn--navy">Send an enquiry<Arrow /></Link>
               <Link to="/services" className="btn btn--outline">See our services</Link>
-            </motion.div>
+            </m.div>
           </div>
           <BrickMark className="hero-bricks" />
         </div>
@@ -53,7 +54,7 @@ export default function Home() {
       </section>
 
       <ScrollMarquee items={['Little moments', 'Big beginnings']} />
-      <ServiceCarousel />
+      <Suspense fallback={<div style={{ minHeight: 640 }} />}><ServiceCarousel /></Suspense>
       <Steps />
       <Rates />
 
@@ -66,7 +67,7 @@ export default function Home() {
       <section className="section" aria-labelledby="faq-title">
         <div className="wrap faq-grid">
           <h2 id="faq-title" className="h-section"><Words text="Questions parents ask" /></h2>
-          <Faq />
+          <Suspense fallback={<div style={{ minHeight: 480 }} />}><Faq /></Suspense>
         </div>
       </section>
       <Cta />

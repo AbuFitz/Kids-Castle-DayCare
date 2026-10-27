@@ -1,6 +1,6 @@
 import { Suspense, lazy, useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
-import { AnimatePresence, MotionConfig, motion } from 'motion/react';
+import { AnimatePresence, LazyMotion, MotionConfig, domAnimation, m } from 'motion/react';
 import { Nav } from './components/Nav';
 import { Footer } from './components/Footer';
 import Home from './pages/Home';
@@ -31,11 +31,12 @@ export default function App() {
     document.querySelector('meta[name="description"]')?.setAttribute('content', descriptions[location.pathname] ?? descriptions['/']);
   }, [location.pathname]);
   return (
+    <LazyMotion features={domAnimation}>
     <MotionConfig reducedMotion="user">
       <a href="#main" className="skip">Skip to content</a>
       <Nav />
       <AnimatePresence mode="wait">
-        <motion.main key={location.pathname} id="main" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}>
+        <m.main key={location.pathname} id="main" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}>
           <Suspense fallback={<div style={{ minHeight: '70vh' }} />}>
           <Routes location={location}>
             <Route path="/" element={<Home />} />
@@ -45,9 +46,10 @@ export default function App() {
             <Route path="*" element={<NotFound />} />
           </Routes>
           </Suspense>
-        </motion.main>
+        </m.main>
       </AnimatePresence>
       <Footer />
     </MotionConfig>
+    </LazyMotion>
   );
 }

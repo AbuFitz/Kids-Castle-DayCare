@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
-import { AnimatePresence, motion, useScroll, useSpring } from 'motion/react';
+import { AnimatePresence, m, useScroll, useSpring } from 'motion/react';
 import { Logo } from './Logo';
 import { Arrow } from './Motion';
 import { nav } from '../data/site';
@@ -27,7 +27,7 @@ export function Nav() {
 
   return (
     <>
-      <motion.div className="progress" style={{ scaleX: progress }} aria-hidden="true" />
+      <m.div className="progress" style={{ scaleX: progress }} aria-hidden="true" />
       <header className={`nav ${scrolled ? 'is-scrolled' : ''}`}>
         <div className="nav-bar wrap">
           <Link to="/" className="nav-logo" aria-label="Kids Castle home"><Logo variant="wordmark" /></Link>
@@ -45,17 +45,17 @@ export function Nav() {
         </div>
         <AnimatePresence>
           {open && (
-            <motion.div id="mobile-menu" className="mobile-menu" initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}>
+            <m.div id="mobile-menu" className="mobile-menu" initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}>
               <div className="wrap">
                 {nav.map((n, i) => (
-                  <motion.div key={n.to} initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.04 + i * 0.04 }}>
+                  <m.div key={n.to} initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.04 + i * 0.04 }}>
                     <NavLink className="m-link" to={n.to} end={n.to === '/'}>{n.label}<Arrow /></NavLink>
-                  </motion.div>
+                  </m.div>
                 ))}
                 <small>Phone and email are being updated. Please use the enquiry form.</small>
                 <Link to="/contact" className="btn">Send an enquiry<Arrow /></Link>
               </div>
-            </motion.div>
+            </m.div>
           )}
         </AnimatePresence>
       </header>

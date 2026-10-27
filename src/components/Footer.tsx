@@ -13,11 +13,11 @@ export function Footer() {
           </div>
           <div className="footer-cols">
             <div>
-              <h4>Explore</h4>
+              <h2 className="footer-h">Explore</h2>
               <ul>{nav.map((n) => <li key={n.to}><Link to={n.to}>{n.label}</Link></li>)}</ul>
             </div>
             <div>
-              <h4>Care</h4>
+              <h2 className="footer-h">Care</h2>
               <ul>
                 <li>{site.nursery.showFullAddress ? `Home nursery: ${site.nursery.address.line1}, ${site.nursery.address.area}, ${site.nursery.address.city} ${site.nursery.address.postcode}` : 'Home nursery, East London'}</li>
                 <li>Babysitting, North London</li>
@@ -25,7 +25,7 @@ export function Footer() {
               </ul>
             </div>
             <div>
-              <h4>Get in touch</h4>
+              <h2 className="footer-h">Get in touch</h2>
               <ul>
                 <li><Link to="/contact">Enquiry form</Link></li>
                 <li><a href={site.social.facebook} target="_blank" rel="noreferrer">Facebook</a></li>

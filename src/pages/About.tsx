@@ -1,6 +1,7 @@
+import { Suspense, lazy } from 'react';
 import { Link } from 'react-router-dom';
 import { Arrow, ScrollWords, Words } from '../components/Motion';
-import { Faq } from '../components/Faq';
+const Faq = lazy(() => import('../components/Faq').then((m) => ({ default: m.Faq })));
 import { Cta } from '../components/Cta';
 import { site } from '../data/site';
 
@@ -38,7 +39,7 @@ export default function About() {
       <section className="section section--warm">
         <div className="wrap faq-grid">
           <h2 className="h-section"><Words text="Questions parents ask" /></h2>
-          <div><Faq /><p style={{ marginTop: 28 }}><Link to="/contact" className="btn">Send an enquiry<Arrow /></Link></p></div>
+          <div><Suspense fallback={<div style={{ minHeight: 480 }} />}><Faq /></Suspense><p style={{ marginTop: 28 }}><Link to="/contact" className="btn">Send an enquiry<Arrow /></Link></p></div>
         </div>
       </section>
       <Cta />

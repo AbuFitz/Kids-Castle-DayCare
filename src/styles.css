@@ -219,7 +219,7 @@ textarea.input { min-height: 130px; resize: vertical; }
 .footer-grid { display: grid; gap: 40px; }
 .footer-brand img { width: min(100%, 260px); height: auto; }
 .footer-brand p { margin-top: 20px; color: var(--ink-soft); max-width: 36ch; }
-.footer h4 { font-size: 1.15rem; letter-spacing: -.01em; margin-bottom: 14px; }
+.footer-h { font-size: 1.15rem; letter-spacing: -.02em; margin-bottom: 14px; line-height: 1.2; }
 .footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; color: var(--ink-soft); }
 .footer a:hover { color: var(--navy); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
 .footer-cols { display: grid; gap: 28px; grid-template-columns: repeat(2, 1fr); }

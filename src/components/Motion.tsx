@@ -1,13 +1,13 @@
-import { animate, motion, useInView, useReducedMotion, useScroll, useTransform, type MotionValue } from 'motion/react';
+import { animate, m, useInView, useReducedMotion, useScroll, useTransform, type MotionValue } from 'motion/react';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 
 export const ease = [0.22, 1, 0.36, 1] as const;
 
 export function Reveal({ children, delay = 0, y = 24, className }: { children: ReactNode; delay?: number; y?: number; className?: string }) {
   return (
-    <motion.div className={className} initial={{ opacity: 0, y }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '0px 0px -10% 0px' }} transition={{ duration: 0.8, ease, delay }}>
+    <m.div className={className} initial={{ opacity: 0, y }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '0px 0px -10% 0px' }} transition={{ duration: 0.8, ease, delay }}>
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -19,13 +19,13 @@ export function Words({ text, immediate = false, delay = 0 }: { text: string; im
       {words.map((w, i) => (
         <span key={i}>
           <span className="h-word">
-            <motion.span
+            <m.span
               initial={{ y: '110%' }}
               {...(immediate ? { animate: { y: 0 } } : { whileInView: { y: 0 }, viewport: { once: true, margin: '0px 0px -10% 0px' } })}
               transition={{ duration: 0.85, ease, delay: delay + i * 0.06 }}
             >
               {w}
-            </motion.span>
+            </m.span>
           </span>
           {i < words.length - 1 ? ' ' : ''}
         </span>
@@ -38,7 +38,7 @@ export function Words({ text, immediate = false, delay = 0 }: { text: string; im
 export function Photo({ src, alt, ratio = '4 / 3', className = '', priority = false, position = 'center' }: { src: string; alt: string; ratio?: string; className?: string; priority?: boolean; position?: string }) {
   const reduce = useReducedMotion();
   return (
-    <motion.figure
+    <m.figure
       className={`photo ${className}`}
       style={{ aspectRatio: ratio }}
       initial={reduce ? false : { clipPath: 'inset(8% 8% 8% 8% round 36px)', opacity: 0.4 }}
@@ -46,7 +46,7 @@ export function Photo({ src, alt, ratio = '4 / 3', className = '', priority = fa
       viewport={{ once: true, margin: '0px 0px -8% 0px' }}
       transition={{ duration: 1.1, ease }}
     >
-      <motion.img
+      <m.img
         src={src}
         alt={alt}
         loading={priority ? 'eager' : 'lazy'}
@@ -57,7 +57,7 @@ export function Photo({ src, alt, ratio = '4 / 3', className = '', priority = fa
         viewport={{ once: true, margin: '0px 0px -8% 0px' }}
         transition={{ duration: 1.4, ease }}
       />
-    </motion.figure>
+    </m.figure>
   );
 }
 
@@ -75,7 +75,7 @@ export function Arrow() {
 /** Scroll-linked statement: each word lights up as the reader scrolls through it. */
 function ScrollWord({ children, p, a, b }: { children: string; p: MotionValue<number>; a: number; b: number }) {
   const o = useTransform(p, [a, b], [0.52, 1]);
-  return <motion.span style={{ opacity: o }}>{children}</motion.span>;
+  return <m.span style={{ opacity: o }}>{children}</m.span>;
 }
 export function ScrollWords({ text, className }: { text: string; className?: string }) {
   const ref = useRef<HTMLParagraphElement>(null);
@@ -105,8 +105,8 @@ export function ScrollMarquee({ items }: { items: string[] }) {
   const row = (k: string) => Array.from({ length: 3 }, (_, r) => items.map((t, i) => <span key={`${k}${r}${i}`}>{t}<i aria-hidden="true" /></span>));
   return (
     <div className="bigtype" ref={ref} aria-hidden="true">
-      <motion.div className="bigtype-row" style={reduce ? undefined : { x: x1 }}>{row('a')}</motion.div>
-      <motion.div className="bigtype-row bigtype-row--alt" style={reduce ? undefined : { x: x2 }}>{row('b')}</motion.div>
+      <m.div className="bigtype-row" style={reduce ? undefined : { x: x1 }}>{row('a')}</m.div>
+      <m.div className="bigtype-row bigtype-row--alt" style={reduce ? undefined : { x: x2 }}>{row('b')}</m.div>
     </div>
   );
 }

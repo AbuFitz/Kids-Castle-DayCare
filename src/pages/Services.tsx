@@ -23,7 +23,7 @@ export default function Services() {
               <Reveal key={s.id} delay={(i % 3) * 0.08}>
                 <article className="svc-tile">
                   <ImageSlot scene={s.scene} mask="blob1" label={`service-${s.id}`} />
-                  <div className="body"><span className="pill" style={{ background: 'var(--paper)' }}>{s.area}</span><h3>{s.title}</h3><p>{s.text}</p></div>
+                  <div className="body"><span className="pill">{s.area}</span><h3>{s.title}</h3><p>{s.text}</p></div>
                 </article>
               </Reveal>
             ))}

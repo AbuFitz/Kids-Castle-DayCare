@@ -25,7 +25,7 @@ export default function Home() {
             <h1 id="hero-title" className="h-display">
               <span className="line"><Words text="Little moments." immediate delay={0.2} /></span>
               <span className="line"><Words text="Big beginnings." immediate delay={0.45} /></span>
-              <Sticker label="Play" tone="orange" shape="cloud" rot={-12} style={{ left: '2%', top: '-4%' }} delay={1} />
+              <Sticker label="Play" tone="orange" shape="cloud" rot={-12} style={{ left: '-1%', top: '-15%' }} delay={1} />
               <Sticker label="Little ones" tone="blue" shape="scallop" rot={8} style={{ right: '1%', top: '-6%' }} delay={1.2} />
               <Sticker label="Cosy" tone="mint" shape="blob" rot={-6} style={{ left: '46%', bottom: '-10%' }} delay={1.4} />
             </h1>

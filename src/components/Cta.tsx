@@ -10,7 +10,7 @@ export function Cta() {
         <div className="cta">
           <div style={{ position: 'relative', paddingBottom: 24 }}>
             <h2 id="cta-title"><Words text="Ready to get started?" /></h2>
-            <Sticker label="Hello!" tone="orange" shape="scallop" rot={10} style={{ right: '8%', top: -10 }} />
+            <Sticker label="Hello!" tone="yellow" shape="scallop" rot={10} style={{ right: 0, top: -44 }} />
             <Link to="/contact" className="btn"><Plus />Send an enquiry</Link>
           </div>
           <div className="cta-art">

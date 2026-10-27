@@ -1,30 +1,24 @@
 import { Link } from 'react-router-dom';
-import { CountUp, Plus, Reveal, Sticker, Words } from './Motion';
-import { ImageSlot } from './Art';
+import { Arrow, Photo, Words } from './Motion';
 import { site } from '../data/site';
 
-export function Rates() {
+export function Rates({ compact = false }: { compact?: boolean }) {
   return (
-    <section className="section" aria-labelledby="rates-title">
-      <div className="wrap rates">
-        <Reveal className="story-media">
-          <ImageSlot scene={4} mask="blob1" label="rates-feature" />
-        </Reveal>
-        <div className="story-copy">
-          <div className="title-row">
-            <h2 id="rates-title" className="h-section"><Words text="Clear, simple rates" /></h2>
-            <Sticker label="Fair" tone="mint" shape="blob" rot={9} style={{ right: -34, top: -26 }} />
+    <section className="section section--warm" aria-labelledby="rates-title">
+      <div className="wrap split">
+        {!compact && <Photo src="/images/art.webp" alt="Children painting together with a carer helping" ratio="5 / 4" className="rates-photo" />}
+        <div>
+          <h2 id="rates-title" className="h-section"><Words text="Clear, simple rates" /></h2>
+          <p className="lead">The rates shared with us so far. Bookings depend on your family’s requirements and availability.</p>
+          <div className="rate-table">
+            {site.rates.map((r) => (
+              <div key={r.label} className="rate-row"><span>{r.label}</span><strong>{r.value}<small>{r.unit}</small></strong></div>
+            ))}
           </div>
-          <p className="lead" style={{ margin: '18px 0 0' }}>The rates shared with us so far, per hour. Bookings depend on your family’s requirements and availability.</p>
-          <div className="rate-figs">
-            <div className="rate-fig"><CountUp to={25} prefix="£" /><span>per hour, per child under two (from)</span></div>
-            <div className="rate-fig"><CountUp to={20} prefix="£" /><span>per hour, per child aged three and over</span></div>
-            <div className="rate-fig"><CountUp to={35} prefix="£" /><span>per hour in total for two siblings</span></div>
-          </div>
-          <p style={{ marginTop: 28 }}><Link to="/services" className="btn"><Plus />All rates</Link></p>
-          <div className="note"><strong>Still being confirmed:</strong>
+          <div className="note"><strong>Still being confirmed</strong>
             <ul>{site.ratesToConfirm.map((t) => <li key={t}>{t}</li>)}</ul>
           </div>
+          {!compact && <p style={{ marginTop: 24 }}><Link to="/contact" className="btn">Ask about your family<Arrow /></Link></p>}
         </div>
       </div>
     </section>

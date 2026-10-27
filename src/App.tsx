@@ -3,7 +3,6 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import { AnimatePresence, MotionConfig, motion } from 'motion/react';
 import { Nav } from './components/Nav';
 import { Footer } from './components/Footer';
-import { ShapeDefs } from './components/Shapes';
 import Home from './pages/Home';
 const About = lazy(() => import('./pages/About'));
 const Services = lazy(() => import('./pages/Services'));
@@ -34,7 +33,6 @@ export default function App() {
   return (
     <MotionConfig reducedMotion="user">
       <a href="#main" className="skip">Skip to content</a>
-      <ShapeDefs />
       <Nav />
       <AnimatePresence mode="wait">
         <motion.main key={location.pathname} id="main" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}>

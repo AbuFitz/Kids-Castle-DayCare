@@ -1,17 +1,17 @@
-import { motion, useReducedMotion, useInView, animate } from 'motion/react';
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { motion, useReducedMotion } from 'motion/react';
+import type { ReactNode } from 'react';
 
-const ease = [0.22, 1, 0.36, 1] as const;
+export const ease = [0.22, 1, 0.36, 1] as const;
 
-export function Reveal({ children, delay = 0, y = 28, className }: { children: ReactNode; delay?: number; y?: number; className?: string }) {
+export function Reveal({ children, delay = 0, y = 24, className }: { children: ReactNode; delay?: number; y?: number; className?: string }) {
   return (
-    <motion.div className={className} initial={{ opacity: 0, y }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '0px 0px -12% 0px' }} transition={{ duration: 0.8, ease, delay }}>
+    <motion.div className={className} initial={{ opacity: 0, y }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '0px 0px -10% 0px' }} transition={{ duration: 0.8, ease, delay }}>
       {children}
     </motion.div>
   );
 }
 
-/** Words rise out of a mask, one after another (hero uses `immediate`; sections trigger in view). */
+/** Words rise out of a mask, one after another. `immediate` for above-the-fold headings. */
 export function Words({ text, immediate = false, delay = 0 }: { text: string; immediate?: boolean; delay?: number }) {
   const words = text.split(' ');
   return (
@@ -20,9 +20,9 @@ export function Words({ text, immediate = false, delay = 0 }: { text: string; im
         <span key={i}>
           <span className="h-word">
             <motion.span
-              initial={{ y: '115%', rotate: 5 }}
-              {...(immediate ? { animate: { y: 0, rotate: 0 } } : { whileInView: { y: 0, rotate: 0 }, viewport: { once: true, margin: '0px 0px -10% 0px' } })}
-              transition={{ duration: 0.9, ease, delay: delay + i * 0.07 }}
+              initial={{ y: '110%' }}
+              {...(immediate ? { animate: { y: 0 } } : { whileInView: { y: 0 }, viewport: { once: true, margin: '0px 0px -10% 0px' } })}
+              transition={{ duration: 0.85, ease, delay: delay + i * 0.06 }}
             >
               {w}
             </motion.span>
@@ -34,69 +34,40 @@ export function Words({ text, immediate = false, delay = 0 }: { text: string; im
   );
 }
 
-export function Sticker({ label, tone = 'orange', shape = 'cloud', rot = -8, className = '', style, delay = 0.6, dark }: { label: string; tone?: string; shape?: 'cloud' | 'blob' | 'scallop'; rot?: number; className?: string; style?: React.CSSProperties; delay?: number; dark?: boolean }) {
-  return (
-    <motion.span
-      aria-hidden="true"
-      className={`sticker s-${shape} tone-${tone} ${dark ? 'dark' : ''} ${className}`}
-      style={{ ['--rot' as string]: `${rot}deg`, ...style }}
-      initial={{ scale: 0, rotate: rot - 40, opacity: 0 }}
-      whileInView={{ scale: 1, rotate: rot, opacity: 1 }}
-      viewport={{ once: true }}
-      transition={{ type: 'spring', stiffness: 260, damping: 14, delay }}
-    >
-      <motion.span animate={{ rotate: [0, 3, -3, 0] }} transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay }} style={{ display: 'block' }}>
-        {label}
-      </motion.span>
-    </motion.span>
-  );
-}
-
-export function CountUp({ to, prefix = '', suffix = '' }: { to: number; prefix?: string; suffix?: string }) {
-  const ref = useRef<HTMLElement>(null);
-  const inView = useInView(ref, { once: true });
+/** Responsive photo that unveils (soft clip + gentle settle) as it enters view. */
+export function Photo({ src, alt, ratio = '4 / 3', className = '', priority = false, position = 'center' }: { src: string; alt: string; ratio?: string; className?: string; priority?: boolean; position?: string }) {
   const reduce = useReducedMotion();
-  const [v, setV] = useState(reduce ? to : 0);
-  useEffect(() => {
-    if (!inView || reduce) return;
-    const c = animate(0, to, { duration: 1.4, ease, onUpdate: (n) => setV(Math.round(n)) });
-    return () => c.stop();
-  }, [inView, to, reduce]);
-  return <b ref={ref as React.RefObject<HTMLElement>}>{prefix}{v}{suffix}</b>;
-}
-
-const COLORS = ['#179A97', '#F36C38', '#F6BE22', '#3468E8', '#2FB88B'];
-/** Blocks drop into the card and settle with a bounce when it scrolls into view. */
-export function BlockPile({ seed = 0 }: { seed?: number }) {
-  const blocks = Array.from({ length: 6 }, (_, i) => {
-    const r = Math.sin((i + 1) * (seed + 3.7)) * 10000;
-    const f = r - Math.floor(r);
-    return { left: 6 + ((i * 17 + seed * 9) % 78), size: 38 + Math.floor(f * 26), rot: (f - 0.5) * 50, bottom: Math.floor(i / 3) * 40 + 6 + f * 8, c: COLORS[(i + seed) % 5] };
-  });
   return (
-    <motion.div className="block-pile" aria-hidden="true" initial="hide" whileInView="show" viewport={{ once: true, margin: '0px 0px -10% 0px' }}>
-      {blocks.map((b, i) => (
-        <motion.span key={i} className="block" style={{ left: `${b.left}%`, bottom: b.bottom, width: b.size, height: b.size, background: b.c }}
-          variants={{ hide: { y: -320, rotate: 0, opacity: 0 }, show: { y: 0, rotate: b.rot, opacity: 1, transition: { type: 'spring', stiffness: 150, damping: 11, mass: 0.9, delay: 0.15 + i * 0.1 } } }} />
-      ))}
-    </motion.div>
+    <motion.figure
+      className={`photo ${className}`}
+      style={{ aspectRatio: ratio }}
+      initial={reduce ? false : { clipPath: 'inset(8% 8% 8% 8% round 36px)', opacity: 0.4 }}
+      whileInView={{ clipPath: 'inset(0% 0% 0% 0% round 28px)', opacity: 1 }}
+      viewport={{ once: true, margin: '0px 0px -8% 0px' }}
+      transition={{ duration: 1.1, ease }}
+    >
+      <motion.img
+        src={src}
+        alt={alt}
+        loading={priority ? 'eager' : 'lazy'}
+        decoding="async"
+        style={{ objectPosition: position }}
+        initial={reduce ? false : { scale: 1.12 }}
+        whileInView={{ scale: 1 }}
+        viewport={{ once: true, margin: '0px 0px -8% 0px' }}
+        transition={{ duration: 1.4, ease }}
+      />
+    </motion.figure>
   );
-}
-
-export function Marquee({ items }: { items: string[] }) {
-  const colors = COLORS;
-  const row = (k: string) => (
-    <div key={k} style={{ display: 'flex' }} aria-hidden={k === 'b' ? 'true' : undefined}>
-      {items.map((t, i) => (
-        <span key={i}>{t}<i style={{ background: colors[i % 5] }} /></span>
-      ))}
-    </div>
-  );
-  return <div className="marquee"><div className="marquee-track">{row('a')}{row('b')}</div></div>;
 }
 
 export function Plus() {
   return (
-    <svg className="plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
+    <svg className="plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
+  );
+}
+export function Arrow() {
+  return (
+    <svg className="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
   );
 }

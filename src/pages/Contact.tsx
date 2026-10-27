@@ -2,8 +2,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Plus, Reveal, Sticker, Words } from '../components/Motion';
-import { ImageSlot } from '../components/Art';
+import { Arrow, Photo, Words } from '../components/Motion';
 import { site } from '../data/site';
 
 const careTypes = ['Home nursery (East London)', 'Babysitting (North London)', 'Nanny care (North London)', 'Not sure yet'] as const;
@@ -52,23 +51,21 @@ export default function Contact() {
     <>
       <section className="page-head" style={{ paddingBottom: 24 }}>
         <div className="wrap">
-          <div className="title-row">
-            <h1><Words text="Get in touch" immediate /></h1>
-            <Sticker label="Say hi" tone="orange" shape="scallop" rot={-12} style={{ left: -12, top: -34 }} />
-          </div>
+          <h1><Words text="Get in touch" immediate /></h1>
+          <p className="lead">Tell us about your family and the care you need. We’ll come back to you about availability.</p>
         </div>
       </section>
       <section className="section" style={{ paddingTop: 24 }}>
         <div className="wrap contact-grid">
-          <Reveal>
-            <div className="contact-art">
-              <ImageSlot scene={2} big label="contact-photo" />
-              <div className="info-card"><h3>Home nursery</h3><p>{site.nursery.area}. {site.nursery.status}</p></div>
+          <div className="contact-side">
+            <Photo src="/images/play.webp" alt="Children laughing while holding up painted crafts" ratio="4 / 3" position="35% center" />
+            <div className="info-list">
+              <div className="info-card"><h3>Home nursery</h3><p>{site.nursery.showFullAddress ? `${site.nursery.address.line1}, ${site.nursery.address.area}, ${site.nursery.address.city} ${site.nursery.address.postcode}` : site.nursery.area}. {site.nursery.status}</p></div>
               <div className="info-card"><h3>Babysitting &amp; nannies</h3><p>{site.homeVisits.area}. {site.homeVisits.note}</p></div>
               <div className="info-card"><h3>Phone &amp; email</h3><p>Our contact details are being updated. Please use the enquiry form.</p></div>
             </div>
-          </Reveal>
-          <Reveal delay={0.1}>
+          </div>
+          <div>
             <form className="form-card" onSubmit={handleSubmit(onSubmit)} noValidate aria-label="Childcare enquiry">
               <div className="form-grid">
                 <fieldset className="field">
@@ -103,7 +100,7 @@ export default function Contact() {
                   </label>
                   {err('consent') && <span className="err" role="alert">{err('consent')}</span>}
                 </div>
-                <div><button className="btn" type="submit" disabled={isSubmitting}><Plus />{isSubmitting ? 'Sending…' : 'Send enquiry'}</button></div>
+                <div><button className="btn" type="submit" disabled={isSubmitting}>{isSubmitting ? 'Sending…' : 'Send enquiry'}<Arrow /></button></div>
                 {result && (
                   <div className={`status ${result.sent ? 'ok' : ''}`} role="status">
                     {result.sent ? <strong>Thank you, your enquiry has been sent.</strong> : result.error ? <strong>{result.error}</strong> : <><strong>Preview only: this form is not connected yet, so nothing has been sent.</strong><span>A delivery address will be added once the verified contact details are confirmed. Your enquiry, ready to send:</span></>}
@@ -112,7 +109,7 @@ export default function Contact() {
                 )}
               </div>
             </form>
-          </Reveal>
+          </div>
         </div>
       </section>
     </>

@@ -15,6 +15,9 @@ export const site = {
   formEndpoint: '' as string,
   social: { facebook: 'https://www.facebook.com/people/Kids-Castle-Daycare/61556896238767/' },
   nursery: {
+    // Address as listed on the Google Business Profile (supplied by the client). Flip showFullAddress to false to show the area only.
+    address: { line1: '16 Montgomery Lodge', area: 'Bethnal Green', city: 'London', postcode: 'E1 4XQ' },
+    showFullAddress: true,
     area: 'Bethnal Green, East London',
     status: 'Currently being renovated. No reopening date has been confirmed.',
   },

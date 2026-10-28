@@ -69,6 +69,7 @@ p { margin: 0; }
 /* ---------- Type ---------- */
 .h-word { display: inline-block; overflow: hidden; vertical-align: bottom; padding: .06em .04em .16em; margin: -.06em -.04em -.16em; }
 .h-word > span { display: inline-block; will-change: transform; }
+.punct { margin-left: -.09em; }
 .h-display { font-size: clamp(2.9rem, 13vw, 4.6rem); line-height: .98; letter-spacing: -.05em; font-weight: 800; }
 .h-display .line { display: block; }
 .h-section { font-size: clamp(2.3rem, 9vw, 4.2rem); letter-spacing: -.045em; font-weight: 800; }

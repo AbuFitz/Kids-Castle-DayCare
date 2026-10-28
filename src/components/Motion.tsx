@@ -24,7 +24,10 @@ export function Words({ text, immediate = false, delay = 0 }: { text: string; im
               {...(immediate ? { animate: { y: 0 } } : { whileInView: { y: 0 }, viewport: { once: true, margin: '0px 0px -10% 0px' } })}
               transition={{ duration: 0.85, ease, delay: delay + i * 0.06 }}
             >
-              {w}
+              {(() => {
+                const mm = w.match(/^(.*?)([.,!?]+)$/);
+                return mm ? <>{mm[1]}<span className="punct">{mm[2]}</span></> : w;
+              })()}
             </m.span>
           </span>
           {i < words.length - 1 ? ' ' : ''}

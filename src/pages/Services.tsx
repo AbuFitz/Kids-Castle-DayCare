@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
-import { Arrow, Words } from '../components/Motion';
+import { Arrow, Reveal, Words } from '../components/Motion';
 import { Cta } from '../components/Cta';
+import { Cutout } from '../components/Cutout';
 import { Rates } from '../components/Rates';
 import { services } from '../data/site';
 
@@ -16,12 +17,15 @@ export default function Services() {
       <section className="section">
         <div className="wrap svc-grid">
           {services.map((s) => (
-            <article key={s.id} className={`svc-tile t-${s.tone}`}>
+            <Reveal key={s.id}><article className={`svc-tile t-${s.tone}`}>
               <span className="pill">{s.area}</span>
               <h3>{s.title}</h3>
               <p>{s.text}</p>
               <Link to="/contact" className="link-arrow">Enquire<Arrow /></Link>
-            </article>
+              {s.id === 'home-nursery' && <Cutout name="nursery" w={682} h={760} className="art-tile" />}
+              {s.id === 'nanny' && <Cutout name="nanny" w={531} h={760} className="art-tile" />}
+              {s.id === 'evening-weekend' && <Cutout name="evening" w={760} h={690} className="art-tile" />}
+            </article></Reveal>
           ))}
         </div>
       </section>

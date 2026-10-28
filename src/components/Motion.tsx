@@ -1,4 +1,4 @@
-import { animate, m, useInView, useReducedMotion, useScroll, useTransform, type MotionValue } from 'motion/react';
+import { animate, m, useInView, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform, type MotionValue } from 'motion/react';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 
 export const ease = [0.22, 1, 0.36, 1] as const;
@@ -129,4 +129,30 @@ export function CountValue({ value }: { value: string }) {
   }, [inView, target, reduce]);
   if (!m) return <strong>{value}</strong>;
   return <strong ref={ref as React.RefObject<HTMLElement>}><span className="visually-hidden">{value}</span>{m[1] && <span className="from" aria-hidden="true">{m[1]}</span>}<span aria-hidden="true">£{n}</span></strong>;
+}
+
+/** Auto-scrolling band of services. Static under reduced motion (CSS). */
+export function Marquee({ items }: { items: string[] }) {
+  const row = (k: string) => items.map((t, i) => <span key={`${k}${i}`}>{t}<i aria-hidden="true">✦</i></span>);
+  return (
+    <div className="marquee" aria-hidden="true">
+      <div className="marquee-track">{row('a')}{row('b')}{row('c')}{row('d')}</div>
+    </div>
+  );
+}
+
+/** Pulls its child gently toward the pointer. No-op for touch and reduced motion. */
+export function Magnetic({ children }: { children: ReactNode }) {
+  const reduce = useReducedMotion();
+  const ref = useRef<HTMLSpanElement>(null);
+  const x = useMotionValue(0), y = useMotionValue(0);
+  const sx = useSpring(x, { stiffness: 220, damping: 16 }), sy = useSpring(y, { stiffness: 220, damping: 16 });
+  if (reduce) return <>{children}</>;
+  return (
+    <m.span ref={ref} style={{ x: sx, y: sy, display: 'inline-block' }}
+      onPointerMove={(e) => { if (e.pointerType !== 'mouse' || !ref.current) return; const r = ref.current.getBoundingClientRect(); x.set((e.clientX - (r.left + r.width / 2)) * 0.22); y.set((e.clientY - (r.top + r.height / 2)) * 0.28); }}
+      onPointerLeave={() => { x.set(0); y.set(0); }}>
+      {children}
+    </m.span>
+  );
 }

@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Arrow, Words } from '../components/Motion';
+import { Cutout } from '../components/Cutout';
 import { site } from '../data/site';
 
 const careTypes = ['Home nursery (East London)', 'Babysitting (North London)', 'Nanny care (North London)', 'Not sure yet'] as const;
@@ -58,6 +60,7 @@ export default function Contact() {
       <section className="section">
         <div className="wrap contact-grid">
           <div className="contact-side">
+            <Cutout name="letter" w={760} h={737} className="art-contact" />
             <div className="info-list">
               <div className="info-card"><h3>Home nursery</h3><p>{site.nursery.showFullAddress ? `${site.nursery.address.line1}, ${site.nursery.address.area}, ${site.nursery.address.city} ${site.nursery.address.postcode}` : site.nursery.area}. {site.nursery.status}</p></div>
               <div className="info-card"><h3>Babysitting &amp; nannies</h3><p>{site.homeVisits.area}. {site.homeVisits.note}</p></div>
@@ -69,8 +72,8 @@ export default function Contact() {
               <div className="form-grid">
                 <fieldset className="field">
                   <legend>Type of care</legend>
-                  <div className="chips">
-                    {careTypes.map((c) => (<label className="chip" key={c}><input type="radio" value={c} {...register('careType')} /><span>{c}</span></label>))}
+                  <div className="chips-field">
+                    {careTypes.map((c) => (<label className="chip-opt" key={c}><input type="radio" value={c} {...register('careType')} /><span>{c}</span></label>))}
                   </div>
                   {err('careType') && <span className="err" role="alert">{err('careType')}</span>}
                 </fieldset>
@@ -84,7 +87,7 @@ export default function Contact() {
                 </div>
                 <fieldset className="field">
                   <legend>Preferred times</legend>
-                  <div className="chips">{times.map((t) => (<label className="chip" key={t}><input type="checkbox" value={t} {...register('times')} /><span>{t}</span></label>))}</div>
+                  <div className="chips-field">{times.map((t) => (<label className="chip-opt" key={t}><input type="checkbox" value={t} {...register('times')} /><span>{t}</span></label>))}</div>
                 </fieldset>
                 <div className="field"><label htmlFor="name">Your name</label><input id="name" className="input" autoComplete="name" aria-invalid={inv('name')} {...register('name')} />{err('name') && <span className="err" role="alert">{err('name')}</span>}</div>
                 <div className="two">
@@ -93,9 +96,9 @@ export default function Contact() {
                 </div>
                 <div className="field"><label htmlFor="message">Message</label><textarea id="message" className="input" placeholder="Tell us anything that would help" {...register('message')} /></div>
                 <div className="field">
-                  <label className="chip" style={{ display: 'flex', gap: 10, alignItems: 'flex-start', fontSize: '.9rem' }}>
+                  <label className="chip-opt" style={{ display: 'flex', gap: 10, alignItems: 'flex-start', fontSize: '.9rem' }}>
                     <input type="checkbox" style={{ position: 'static', opacity: 1, width: 20, height: 20, marginTop: 2 }} {...register('consent')} />
-                    <span style={{ border: 0, background: 'none', padding: 0, fontWeight: 500 }}>I agree that Kids Castle may use these details to reply to my enquiry.</span>
+                    <span style={{ border: 0, background: 'none', padding: 0, fontWeight: 500 }}>I agree that Kids Castle may use these details to reply to my enquiry. <Link to="/privacy" style={{ textDecoration: 'underline' }}>Privacy notice</Link></span>
                   </label>
                   {err('consent') && <span className="err" role="alert">{err('consent')}</span>}
                 </div>

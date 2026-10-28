@@ -1,13 +1,18 @@
 import { Link } from 'react-router-dom';
-import { Arrow, Words } from './Motion';
+import { Arrow, Magnetic, Words } from './Motion';
+import { Cutout } from './Cutout';
 
+const bricks = ['teal', 'tangerine', 'sky', 'white'];
 export function Cta() {
   return (
     <section className="cta" aria-labelledby="cta-title">
       <div className="wrap cta-inner">
         <h2 id="cta-title"><Words text="Tell us what your family needs." /></h2>
-        <Link to="/contact" className="btn btn--yellow">Send an enquiry<Arrow /></Link>
+        <p>Share the type of care, your children’s ages, the area and the times you have in mind. We’ll check availability and talk it through.</p>
+        <Magnetic><Link to="/contact" className="btn btn--navy btn--lg">Send an enquiry<Arrow /></Link></Magnetic>
       </div>
+      <Cutout name="letter" w={760} h={737} className="art-letter" />
+      {bricks.map((c, i) => <span key={c} className={`float-brick fb-${i} fb--${c}`} aria-hidden="true" />)}
     </section>
   );
 }

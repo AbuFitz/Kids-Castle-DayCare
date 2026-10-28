@@ -37,7 +37,7 @@ export function Footer() {
         </div>
         <div className="footer-bottom">
           <span>© {new Date().getFullYear()} Kids Castle Daycare &amp; Home Nursery</span>
-          <span>East &amp; North London</span>
+          <span><Link to="/privacy">Privacy notice</Link> · East &amp; North London</span>
         </div>
       </div>
     </footer>

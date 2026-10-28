@@ -40,7 +40,7 @@ export function Nav() {
           </nav>
           <div className="nav-right">
             <Link to="/contact" className="btn nav-cta">Send an enquiry<Arrow /></Link>
-            <button className="menu-btn" aria-expanded={open} aria-controls="mobile-menu" aria-label={open ? 'Close menu' : 'Open menu'} onClick={() => setOpen((o) => !o)}><span /></button>
+            <button className="menu-btn" aria-expanded={open} aria-controls="mobile-menu" onClick={() => setOpen((o) => !o)}>{open ? 'Close' : 'Menu'}</button>
           </div>
         </div>
         <AnimatePresence>

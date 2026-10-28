@@ -1,6 +1,7 @@
 import { Suspense, lazy } from 'react';
 import { Link } from 'react-router-dom';
 import { Arrow, ScrollWords, Words } from '../components/Motion';
+import { Cutout } from '../components/Cutout';
 const Faq = lazy(() => import('../components/Faq').then((m) => ({ default: m.Faq })));
 import { Cta } from '../components/Cta';
 import { site } from '../data/site';
@@ -18,6 +19,7 @@ export default function About() {
           {/* PROVISIONAL draft copy. Owner biography is configurable and left out until the client supplies it. */}
           <ScrollWords className="statement" text={`Kids Castle Daycare offers two ways of caring for children: a home nursery setting in ${site.nursery.area}, and babysitting and nanny care in the family’s own home across North London.`} />
           <p className="note">{site.nursery.status}</p>
+          <Cutout name="nursery" w={682} h={760} className="art-about" />
         </div>
       </section>
       <section className="tiles" aria-label="At a glance">
@@ -36,7 +38,7 @@ export default function About() {
           </div>
         </div>
       </section>
-      <section className="section section--warm">
+      <section className="faq-section">
         <div className="wrap faq-grid">
           <h2 className="h-section"><Words text="Questions parents ask" /></h2>
           <div><Suspense fallback={<div style={{ minHeight: 480 }} />}><Faq /></Suspense><p style={{ marginTop: 28 }}><Link to="/contact" className="btn">Send an enquiry<Arrow /></Link></p></div>

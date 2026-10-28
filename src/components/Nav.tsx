@@ -3,7 +3,7 @@ import { Link, NavLink, useLocation } from 'react-router-dom';
 import { AnimatePresence, m, useScroll, useSpring } from 'motion/react';
 import { Logo } from './Logo';
 import { Arrow } from './Motion';
-import { nav } from '../data/site';
+import { nav, site } from '../data/site';
 
 export function Nav() {
   const [open, setOpen] = useState(false);
@@ -30,7 +30,7 @@ export function Nav() {
       <m.div className="progress" style={{ scaleX: progress }} aria-hidden="true" />
       <header className={`nav ${scrolled ? 'is-scrolled' : ''}`}>
         <div className="nav-bar wrap">
-          <Link to="/" className="nav-logo" aria-label="Kids Castle home"><Logo variant="wordmark" /></Link>
+          <Link to="/" className="nav-logo" aria-label="Kids Castle home"><Logo variant="nav" /></Link>
           <nav aria-label="Primary">
             <ul className="nav-links">
               {nav.map((n) => (
@@ -52,7 +52,7 @@ export function Nav() {
                     <NavLink className="m-link" to={n.to} end={n.to === '/'}>{n.label}<Arrow /></NavLink>
                   </m.div>
                 ))}
-                <small>Phone and email are being updated. Please use the enquiry form.</small>
+                {site.contact.email && <small>Email <a href={`mailto:${site.contact.email}`} style={{ textDecoration: 'underline' }}>{site.contact.email}</a></small>}
                 <Link to="/contact" className="btn">Send an enquiry<Arrow /></Link>
               </div>
             </m.div>

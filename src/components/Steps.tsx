@@ -1,4 +1,5 @@
 import { Reveal, Words } from './Motion';
+import { Cutout } from './Cutout';
 import { steps } from '../data/site';
 
 const tone = ['teal', 'sun', 'tangerine', 'sky'];
@@ -8,6 +9,7 @@ export function Steps() {
       <div className="wrap">
         <h2 id="steps-title" className="h-section"><Words text="Getting started." /></h2>
         <p className="lead">Four blocks, one on top of the other.</p>
+        <Cutout name="girl" w={900} h={750} className="art-steps" />
         <ol className="stairs">
           {steps.map((s, i) => (
             <li key={s.tag} className={`stair stair--${tone[i]}`} style={{ ['--i' as string]: i }}>

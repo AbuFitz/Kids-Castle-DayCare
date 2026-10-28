@@ -67,6 +67,15 @@ def build(kind, mono=None, descriptor='DAYCARE'):
     if kind == 'wordmark':
         x0, y0, x1, y1 = wb; pad = 8
         return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="{x0-pad:.1f} {y0-pad:.1f} {x1-x0+2*pad:.1f} {y1-y0+2*pad:.1f}" role="img" aria-label="Kids Castle"><title>Kids Castle</title>{wordm}</svg>'
+    if kind == 'stacked':
+        # wordmark with the descriptor beneath, no icon; descriptor width matches the wordmark
+        wx0, wy0, wx1, wy1 = wb; ww = wx1 - wx0; wh = wy1 - wy0; pad = 6; gap = 20
+        d, w = text_path('DAYCARE & HOME NURSERY', FONT, 800, 100, 7)
+        sc = ww / w; capH = 72 * sc
+        H = wh + gap + capH + pad * 2; W = ww + pad * 2
+        dtext = f'<path fill="{ink}" transform="translate({pad} {pad + wh + gap + capH:.2f}) scale({sc:.5f})" d="{d}"/>'
+        return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W:.1f} {H:.1f}" role="img" aria-label="Kids Castle Daycare &amp; Home Nursery"><title>Kids Castle Daycare &amp; Home Nursery</title>'
+                f'<g transform="translate({pad - wx0:.2f} {pad - wy0:.2f})">{wordm}</g>{dtext}</svg>')
     if kind == 'horizontal':
         # symbol left (scaled to ~110 tall), wordmark + descriptor right
         sx0, sy0, sx1, sy1 = sb; wx0, wy0, wx1, wy1 = wb
@@ -97,5 +106,7 @@ files = {
  '10-horizontal-white': build('horizontal', mono='#ffffff', descriptor='DAYCARE & HOME NURSERY'),
  '11-wordmark-white': build('wordmark', mono='#ffffff'),
  '12-wordmark-navy': build('wordmark', mono=C['navy']),
+ '13-wordmark-descriptor': build('stacked'),
+ '14-wordmark-descriptor-white': build('stacked', mono='#ffffff'),
 }
 for k, v in files.items(): open(f'{OUT}/{k}.svg', 'w').write(v); print(k, len(v))

@@ -5,7 +5,7 @@ export function Cutout({ name, w, h, className = '', delay = 0 }: { name: string
   return (
     <m.img
       className={`cutout ${className}`}
-      src={`/art/${name}.webp`}
+      src={name.startsWith("../") ? `/${name.slice(3)}.webp` : `/art/${name}.webp`}
       alt=""
       aria-hidden="true"
       width={w}

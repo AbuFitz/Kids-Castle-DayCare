@@ -2,36 +2,24 @@ import { Suspense, lazy, useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { AnimatePresence, LazyMotion, MotionConfig, domAnimation, m } from 'motion/react';
 import { Nav } from './components/Nav';
+import { notFoundSeo, seo } from './data/seo';
 import { Footer } from './components/Footer';
 import Home from './pages/Home';
 const About = lazy(() => import('./pages/About'));
 const Services = lazy(() => import('./pages/Services'));
 const Contact = lazy(() => import('./pages/Contact'));
 const Privacy = lazy(() => import('./pages/Privacy'));
+const EastLondon = lazy(() => import('./pages/EastLondon'));
+const NorthLondon = lazy(() => import('./pages/NorthLondon'));
 const NotFound = lazy(() => import('./pages/NotFound'));
-
-const titles: Record<string, string> = {
-  '/': 'Kids Castle Daycare & Home Nursery | East & North London',
-  '/about': 'About | Kids Castle Daycare',
-  '/services': 'Services & Rates | Kids Castle Daycare',
-  '/contact': 'Enquire | Kids Castle Daycare',
-  '/privacy': 'Privacy notice | Kids Castle Daycare',
-};
-
-const descriptions: Record<string, string> = {
-  '/': 'Warm home nursery care in East London, with flexible babysitting and nanny services for families in North London.',
-  '/about': 'About Kids Castle: a home nursery in Bethnal Green, East London, and babysitting and nanny care in North London.',
-  '/services': 'Home nursery, babysitting, nanny, evening, weekend, sibling and full-day care, with the hourly rates shared so far.',
-  '/privacy': 'How Kids Castle uses the details you send in an enquiry.',
-  '/contact': 'Send a childcare enquiry to Kids Castle: care type, children’s ages, area, dates and times.',
-};
 
 export default function App() {
   const location = useLocation();
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
-    document.title = titles[location.pathname] ?? 'Page not found | Kids Castle Daycare';
-    document.querySelector('meta[name="description"]')?.setAttribute('content', descriptions[location.pathname] ?? descriptions['/']);
+    const m = seo[location.pathname] ?? notFoundSeo;
+    document.title = m.title;
+    document.querySelector('meta[name="description"]')?.setAttribute('content', m.description);
   }, [location.pathname]);
   return (
     <LazyMotion features={domAnimation}>
@@ -47,6 +35,8 @@ export default function App() {
             <Route path="/services" element={<Services />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/privacy" element={<Privacy />} />
+            <Route path="/east-london-home-nursery" element={<EastLondon />} />
+            <Route path="/north-london-babysitting" element={<NorthLondon />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
           </Suspense>

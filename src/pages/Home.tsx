@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import { m } from 'motion/react';
 import { Arrow, Magnetic, Marquee, Reveal, ScrollWords, Words } from '../components/Motion';
 import { Cutout } from '../components/Cutout';
+import { PhotoBand } from '../components/PhotoBand';
+import { GoogleTrust } from '../components/GoogleTrust';
+import { Credentials, DailyRhythm } from '../components/Landing';
 import { BrickMark } from '../components/BrickMark';
 import { Steps } from '../components/Steps';
 import { Rates } from '../components/Rates';
@@ -36,16 +39,19 @@ export default function Home() {
                   })}
                 </span>
               ))}
+              <span className="h1-sub">Registered home nursery in East London and mobile childcare across North London</span>
             </h1>
             <m.p className="hero-sub" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8, duration: 0.7 }}>{site.intro}</m.p>
             <m.div className="hero-cta" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.95, duration: 0.7 }}>
               <Magnetic><Link to="/contact" className="btn btn--navy">Send an enquiry<Arrow /></Link></Magnetic>
               <Link to="/services" className="btn btn--ghost">Explore our care</Link>
             </m.div>
+            <GoogleTrust />
           </div>
           <div className="hero-art">
             <span className="hero-back" aria-hidden="true" />
             <div className="hero-card"><BrickMark className="hero-bricks" /></div>
+            <Cutout name="../photos/child" w={820} h={1250} className="art-child" delay={0.9} />
             <span className="price-badge">from £20<br />an hour</span>
           </div>
         </div>
@@ -62,17 +68,16 @@ export default function Home() {
             <Reveal className="care-a">
               <article className="card card--teal">
                 <p className="card-area">East London</p>
-                <h3>The home nursery</h3>
+                <h3><Link to="/east-london-home-nursery">The home nursery</Link></h3>
                 <p>Childminding in a home setting in Bethnal Green.</p>
                 {address && <address>{address.line1}<br />{address.area}, {address.city} {address.postcode}</address>}
-                <span className="stamp">Being renovated<small>No reopening date confirmed yet</small></span>
                 <Cutout name="nursery" w={682} h={760} className="art-nursery" delay={0.1} />
               </article>
             </Reveal>
             <Reveal className="care-b" delay={0.12}>
               <article className="card card--sky">
                 <p className="card-area">North London</p>
-                <h3>At your front door</h3>
+                <h3><Link to="/north-london-babysitting">At your front door</Link></h3>
                 <p>Babysitters and nannies in your own home, arranged around your family’s routine and availability.</p>
                 <ul className="pills"><li>Babysitting</li><li>Nanny care</li><li>Siblings together</li></ul>
                 <Cutout name="nanny" w={531} h={760} className="art-nanny" delay={0.2} />
@@ -80,7 +85,7 @@ export default function Home() {
             </Reveal>
             {[
               ['Evening & weekend', 'Cover for the times a standard day does not reach. Availability depends on the booking.', 'sun'],
-              ['Full-day arrangements', 'Longer days arranged in advance. An eight-hour arrangement is listed at £180.', 'white'],
+              ['Full-day arrangements', 'A consistent full day of care for £180 per 8-hour day, with EYFS activities, rest and freshly prepared meals.', 'white'],
               ['Sibling care', 'Brothers and sisters looked after together, at a combined rate of £35 an hour for two.', 'tangerine'],
             ].map(([t, d, c], i) => (
               <Reveal key={t} className="care-s" delay={i * 0.1}><article className={`card card--${c}`}><h3>{t}</h3><p>{d}</p>{c === 'sun' && <Cutout name="evening" w={760} h={690} className="art-evening" />}</article></Reveal>
@@ -90,14 +95,13 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="section section--tight" aria-label="Registration and safeguarding"><div className="wrap"><Credentials /></div></section>
+      <PhotoBand />
       <Rates />
       <Steps />
+      <DailyRhythm />
 
-      {site.showReviews && site.reviews.length > 0 && (
-        <section className="section"><div className="wrap">{site.reviews.map((r) => (
-          <figure key={r.name} className="review-card"><blockquote>“{r.quote}”</blockquote><figcaption>{r.name}</figcaption></figure>
-        ))}</div></section>
-      )}
+      <GoogleTrust variant="band" />
 
       <section className="faq-section" id="faq" aria-labelledby="faq-title">
         <div className="wrap faq-grid">

@@ -11,7 +11,7 @@ export function Cta() {
         <p>Share the type of care, your children’s ages, the area and the times you have in mind. We’ll check availability and talk it through.</p>
         <Magnetic><Link to="/contact" className="btn btn--navy btn--lg">Send an enquiry<Arrow /></Link></Magnetic>
       </div>
-      <Cutout name="letter" w={760} h={737} className="art-letter" />
+      <Cutout name="child" w={900} h={808} className="art-letter" />
       {bricks.map((c, i) => <span key={c} className={`float-brick fb-${i} fb--${c}`} aria-hidden="true" />)}
     </section>
   );

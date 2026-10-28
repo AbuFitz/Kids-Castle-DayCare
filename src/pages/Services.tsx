@@ -17,7 +17,7 @@ export default function Services() {
       <section className="section">
         <div className="wrap svc-grid">
           {services.map((s) => (
-            <Reveal key={s.id}><article className={`svc-tile t-${s.tone}`}>
+            <Reveal key={s.id}><article className={`svc-tile t-${s.tone} ${['home-nursery','nanny','evening-weekend'].includes(s.id) ? 'has-art' : ''}`}>
               <span className="pill">{s.area}</span>
               <h3>{s.title}</h3>
               <p>{s.text}</p>

@@ -12,5 +12,6 @@ const files = {
   icon: '/brand/04-icon.svg',
 } as const;
 export function Logo({ variant = 'horizontal', className }: Props) {
-  return <img className={className} src={files[variant]} alt="Kids Castle Daycare & Home Nursery" decoding="async" />;
+  const lead = variant === 'nav';
+  return <img className={className} src={files[variant]} alt="Kids Castle Daycare & Home Nursery" decoding={lead ? 'sync' : 'async'} {...(lead ? { fetchPriority: 'high' as const } : {})} />;
 }

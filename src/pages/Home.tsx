@@ -41,7 +41,7 @@ export default function Home() {
               ))}
               <span className="h1-sub">Registered home nursery in East London and mobile childcare across North London</span>
             </h1>
-            <m.p className="hero-sub" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8, duration: 0.7 }}>{site.intro}</m.p>
+            <p className="hero-sub">{site.intro}</p>
             <m.div className="hero-cta" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.95, duration: 0.7 }}>
               <Magnetic><Link to="/contact" className="btn btn--navy">Send an enquiry<Arrow /></Link></Magnetic>
               <Link to="/services" className="btn btn--ghost">Explore our care</Link>

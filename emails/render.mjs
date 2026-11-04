@@ -4,7 +4,7 @@ import { templates } from './templates.mjs';
 const data = JSON.parse(readFileSync(new URL('./sample.json', import.meta.url), 'utf8'));
 const out = new URL('./out/', import.meta.url);
 mkdirSync(out, { recursive: true });
-const opts = { siteUrl: '../../public', address: '16 Montgomery Lodge, Bethnal Green, London E1 4XQ' };
+const opts = { siteUrl: '../../public' };
 const index = [];
 for (const [name, fn] of Object.entries(templates)) {
   const r = fn(data, opts);

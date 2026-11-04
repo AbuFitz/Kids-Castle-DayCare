@@ -1,1 +1,10 @@
-{ "careType": "Babysitting (North London)", "children": 2, "ages": "18 months and 4", "location": "Highbury", "date": "2026-11-16", "times": ["Evenings", "Weekends"], "name": "Sample Parent", "phone": "07000 000000", "email": "parent@example.com", "contactPref": "email", "message": "Looking for two evenings a week.\nSibling rate please." }
+{
+ "careType": "Babysitting",
+ "ages": "18 months and 4 years",
+ "area": "N5",
+ "schedule": "Two evenings a week from mid-November",
+ "name": "Sample Parent",
+ "email": "parent@example.com",
+ "phone": "07000 000000",
+ "message": "Looking for regular evening cover.\nSibling arrangement please."
+}

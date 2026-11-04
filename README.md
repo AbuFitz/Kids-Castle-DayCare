@@ -1,43 +1,34 @@
-# Kids Castle Daycare & Home Nursery
+# Kids Castle: Nanny & Babysitting Services
 
-Vite + React + TypeScript, mobile-first CSS. Motion (animation), Embla (carousel), Radix (accordion), React Hook Form + Zod (enquiry form).
+Website for Mihaela Oliva's independent nanny and babysitting service in London. Vite + React + TypeScript, prerendered at build time, deployed on Vercel.
 
-```bash
-npm install
-npm run dev      # local
-npm run build    # type-check + production build (Vercel runs this)
-```
+## Pages
+`/` Home · `/services` · `/about` · `/reviews` · `/contact` · legal: `/privacy`, `/cookies`, `/terms`, `/accessibility`, `/complaints`, `/booking-terms` (draft, `noindex`).
+The old `/east-london-home-nursery` and `/north-london-babysitting` pages were removed and 301/308-redirect to `/services` (`vercel.json`).
 
 ## Where things live
-- **Business facts**: `src/data/site.ts` (rates, services, FAQs, process steps, address, contact details, form endpoint, reviews). `null`/empty values render honest "being confirmed" states.
-- **Logo**: `public/brand/` (SVG masters plus PNG/WebP exports and favicons). Rebuilt as clean Bézier curves from the client's raster by `scripts/logo/` (see below). The client-uploaded pack (pixel-stepped traces) is kept untouched in `brand-source-uploaded-pack-v2/` for reference and is not deployed.
-- **Type**: Plus Jakarta Sans (display) and Nunito Sans (body), both OFL via Fontsource.
-- **Hero bricks**: `src/components/BrickMark.tsx` uses the traced brick parts (`brickPaths.ts`, generated).
+- **`src/data/site.ts`**: every editable fact: registration wording, contact, services, "why an independent nanny", process steps, FAQs and the nine Google reviews (verbatim). Unapproved rates are kept in `unapprovedRates` and are **not** displayed anywhere.
+- **`src/data/seo.ts`**: per-route titles/descriptions, redirects map, JSON-LD (no address, no prices, no review/rating markup).
+- **`src/pages/Legal.tsx`**: the six legal documents. Items in `[square brackets]` are owner decisions.
+- **`api/enquiry.js`** + **`emails/templates.mjs`**: enquiry endpoint and email templates.
 
-## Rebuilding the logo
-`scripts/logo/trace.py` classifies each pixel of the reference raster against the logo's five colours, restricting each colour to the region where it genuinely occurs (this removes the yellow/navy fringe fragments), smooths at 4x, drops specks, and traces curves with potrace. `build_pack.py` composes the variants. Needs Python with `potracer`, `scipy`, `numpy`, `pillow`, `fonttools`, `brotli`.
-
-Caveats: traced from a low-resolution raster, so letterforms are smoothed reconstructions, not the designer's original outlines. "DAYCARE & HOME NURSERY" is new typography (Nunito ExtraBold outlines) awaiting approval. The logo's teal (`#4eb5a0`) differs slightly from the brand token teal (`#179A97`).
+## Enquiry form
+Single-page form → `POST /api/enquiry`: server-side zod validation, hidden honeypot, per-IP rate limit, duplicate protection by `submissionId`, sends via Resend to Mihaela and a confirmation to the parent. Set in Vercel: `RESEND_API_KEY`, `ENQUIRY_TO`, `ENQUIRY_FROM` (verified sender), `SITE_URL`. Without them the endpoint answers 501 and the page says plainly that nothing was sent. Nothing is stored on the server. Preview emails: `npm run emails`. Test the endpoint: `npm run test:api`.
 
 ## SEO
-- **Pre-rendered pages**: `npm run build` renders every route to real HTML (`scripts/prerender.mjs`), with per-page title, description, robots, canonical, Open Graph and JSON-LD (business, FAQ, breadcrumbs). The client hydrates it.
-- **Set `SITE_URL`** (Vercel env var, e.g. `https://your-domain`) so canonical URLs, Open Graph URLs and `sitemap.xml` are generated. Without it they are skipped. Vercel's `VERCEL_PROJECT_PRODUCTION_URL` is used as a fallback.
-- **Landing pages**: `/east-london-home-nursery` and `/north-london-babysitting` carry the local content (areas, stations, postcodes, daily rhythm, FAQs). Edit text in `src/data/site.ts`; page titles and descriptions are in `src/data/seo.ts`.
-- Unknown URLs get the prerendered 404 with a real 404 status. No `aggregateRating` markup is emitted because the review count is not verified.
-- After launch: add the site in Google Search Console and submit `sitemap.xml`; keep the Google Business Profile name, address and categories identical to the site.
+Set `SITE_URL` (for example `https://your-domain`) so canonical URLs, Open Graph URLs and `sitemap.xml` are generated. `/booking-terms` is `noindex` and left out of the sitemap. Unknown URLs serve the prerendered 404 with a real 404 status.
 
-## Enquiry form and email
-- Multi-step form (`src/pages/Contact.tsx`) posts to `/api/enquiry` (`api/enquiry.js`): validates, honeypot, rate limit, then sends via Resend. Set `RESEND_API_KEY`, `ENQUIRY_TO`, `ENQUIRY_FROM` (verified sender) and `SITE_URL` in Vercel. Until then the endpoint answers 501 and the page says nothing was sent.
-- Email templates are in `emails/templates.mjs` (parent confirmation, business notification, follow-up). Preview with `npm run emails` (writes `emails/out/`). Test the endpoint with `npm run test:api`.
+## Privacy / cookies
+No cookies, local storage, analytics, maps or third-party scripts; fonts are self-hosted. That is why there is a Cookie Notice and no consent banner. Adding any non-essential tracking would require a consent mechanism first.
 
 ## Local checks
-`npm run build`, then `npm run serve:dist` serves the prerendered build the way Vercel does (directory indexes, real 404).
+`npm run build`, then `npm run serve:dist` (Vercel-like static server with redirects and a real 404).
 
-## Not yet supplied / provisional
-- **Phone number**: not yet verified, so not published. Email `0998.kidscastle@gmail.com` was supplied and is published.
-- **Credentials** (Tiney registration, Enhanced DBS, Paediatric First Aid, public liability cover) are as supplied by the client. Add the Tiney registration reference and keep certificates current.
-- **Google rating** (5.0) is as supplied; add `google.count` only once verified. The one review shown is quoted verbatim as supplied.
-- **Address postcode**: the Google Business Profile lists E1 4XQ; the client's brief said E2. The site uses E1 4XQ. Confirm which is correct.
-- **Still to confirm**: pricing for two-year-olds, and whether home nursery and in-home prices differ.
-- **Photography**: the photo band and child cut-out are supplied template material; replace with the nursery's own photographs when available (consent needed for any child shown).
-- Draft copy marked `PROVISIONAL` in code awaits approval; the owner biography is intentionally absent.
+## Needs Mihaela's approval before launch
+- All copy marked `OWNER-APPROVAL` in the source (Meet Mihaela, About, process steps). No experience, qualifications or philosophy have been invented; add her own words when supplied.
+- **Reviews that mention a nursery, staff, a team or premises** (shown verbatim, flagged in `site.ts` with `note`): Irina Oliva, Cristina Ivan, Miha Tecu, Yasin Dewan, Rabbi Uddin. Decide whether to keep them public.
+- The "areas" list on the Services page (taken from earlier client material) and the Facebook link.
+- Rates, booking terms, retention periods, complaints timings (all marked in the legal pages).
+- The Google Business Profile still describes a daycare and home nursery; align it with the registration.
+- ICO data protection fee / registration for the enquiry data, and review of all legal pages by a UK legal professional.
+- Registered address is shown only in the Privacy Notice. Childcare at that address is awaiting clarification from Ofsted and is not advertised.

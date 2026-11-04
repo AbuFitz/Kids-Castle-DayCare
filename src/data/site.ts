@@ -1,137 +1,103 @@
 /**
  * Single source of truth for every editable business fact.
- * status: 'verified' may ship as-is; 'provisional' is draft copy awaiting client approval;
- * `null` values are blocking facts (not yet supplied) and render as honest "to be confirmed" states.
+ * Anything marked OWNER-APPROVAL is draft wording awaiting Mihaela's sign-off.
+ * `null` values are facts not yet supplied and render as honest "get in touch" states.
  */
 export const site = {
   name: 'Kids Castle',
-  descriptor: 'Daycare & Home Nursery',
+  /** Public-facing positioning, as confirmed by the owner. */
+  descriptor: 'Nanny & Babysitting Services',
+  /** Business name as registered with Google; used in legal documents and the footer only. */
+  legalName: 'Kids Castle Daycare & Home Nursery',
   tagline: 'Little moments. Big beginnings.',
-  intro:
-    'Warm home nursery care in East London, with flexible babysitting and nanny services for families in North London.',
-  // The old flyer phone/email were wrong and are NOT used. Email below was supplied by the client; phone is still unverified.
-  contact: { phone: null as string | null, email: '0998.kidscastle@gmail.com' as string | null },
-  // Set to a form endpoint (e.g. https://formspree.io/f/xxxx) when approved; until then the form never claims to send.
-  formEndpoint: '/api/enquiry' as string,
-  // Rating as supplied by the client. The share link could not be read automatically, so keep this in sync with the live profile.
-  // Add `count` only once the number of reviews is verified. Review text is not quoted without permission.
-  google: { rating: 5 as number | null, url: 'https://share.google/rJ2DfDpKNA2QhcTUC', count: null as number | null },
-  social: { facebook: 'https://www.facebook.com/people/Kids-Castle-Daycare/61556896238767/' },
-  nursery: {
-    // Address as listed on the Google Business Profile (supplied by the client). Flip showFullAddress to false to show the area only.
-    address: { line1: '16 Montgomery Lodge', area: 'Bethnal Green', city: 'London', postcode: 'E1 4XQ' },
-    showFullAddress: true,
-    area: 'Bethnal Green, East London',
+  intro: 'Warm, personal childcare in the comfort of your own home. Caring for little ones from 6 months to 10 years.',
+  provider: 'Mihaela Oliva',
+  ages: '6 months to 10 years',
+  contact: { phone: null as string | null, email: '0998.kidscastle@gmail.com' },
+  formEndpoint: '/api/enquiry',
+  /** Registered address, used in the legal documents only. Childcare at this address is awaiting clarification from Ofsted and is not advertised. */
+  registeredAddress: ['Flat 16 Montgomery Lodge', '3 Cleveland Grove', 'Bethnal Green', 'London E1 4XQ', 'United Kingdom'],
+  ofsted: {
+    number: '2861033',
+    registered: '14 July 2026',
+    category: 'Home Childcarer (voluntary part of the Childcare Register)',
+    /** Ofsted's official report/registration search; search by the registration number. */
+    searchUrl: 'https://reports.ofsted.gov.uk/',
+    statement: 'Mihaela Oliva is registered with Ofsted as a home childcarer on the voluntary part of the Childcare Register. Registration number: 2861033.',
   },
-  homeVisits: { area: 'North London', note: 'Care takes place in your own home, subject to your requirements and availability.' },
-  rates: [
+  google: { rating: 5, count: 9, url: 'https://share.google/rJ2DfDpKNA2QhcTUC' },
+  social: { facebook: 'https://www.facebook.com/people/Kids-Castle-Daycare/61556896238767/' },
+  /** Rates are NOT published until the owner approves them. Kept here for later use; nothing reads this on the public site. */
+  unapprovedRates: [
     { label: 'Children under two', value: 'From £25', unit: 'per hour, per child' },
     { label: 'Children aged three and over', value: '£20', unit: 'per hour, per child' },
     { label: 'Two siblings', value: '£35', unit: 'per hour in total' },
     { label: 'Full day (8 hours)', value: '£180', unit: 'per 8-hour day' },
   ],
-  ratesToConfirm: [
-    'Pricing for two-year-olds.',
-    'Whether home nursery and in-home care prices differ.',
-  ],
-  credentials: [
-    'Registered with Tiney, an Ofsted-registered childminder agency',
-    'Follows the Early Years Foundation Stage (EYFS)',
-    'Enhanced DBS cleared',
-    'Paediatric First Aid certified',
-    'Public liability cover',
-    'Safeguarded premises',
-  ],
-  // Reviews quoted verbatim from Google (typos kept). Supplied by the client; keep wording exactly as posted.
-  reviews: [
-    {
-      quote: 'I want to say that this place is the most valuable place that I ever been, my grandchildren love to came in and play , and they get to meet Mihaela the key person and she’s totally lovely , her care and learning structure is helping all the parents that they came to her to fell like a family ! If I can describe you’re settings will be supportive. caring, , respectful and resilient little explorator!',
-      name: 'A Google review',
-      rating: 5,
-    },
-  ] as { quote: string; name: string; rating?: number }[],
-  showReviews: true,
+  ratesNote: 'Childcare rates depend on your family’s requirements, the ages of the children and the hours of care needed. Get in touch to discuss your arrangement.',
+  areaNote: 'London, including North London',
+  areas: ['Islington', 'Highbury', 'Angel', 'Stoke Newington', 'Finsbury Park', 'Holloway', 'Crouch End', 'Camden borders'],
 };
 
 export const nav = [
   { to: '/', label: 'Home' },
-  { to: '/services', label: 'Services' },
-  { to: '/east-london-home-nursery', label: 'East London' },
-  { to: '/north-london-babysitting', label: 'North London' },
-  { to: '/about', label: 'About' },
+  { to: '/services', label: 'Our Services' },
+  { to: '/about', label: 'About Mihaela' },
+  { to: '/reviews', label: 'Reviews' },
   { to: '/contact', label: 'Contact' },
 ];
 
-export type Service = { id: string; area: string; title: string; text: string; tone: string; scene: number };
+export type Service = { id: string; title: string; text: string; where: string; tone: 'teal' | 'tangerine' | 'sky' | 'sun' | 'mint' };
+/** Descriptions only restate confirmed facts: care is in the family's own home, availability and hours are agreed with the parent. */
 export const services: Service[] = [
-  { id: 'home-nursery', area: 'East London', title: 'Home Nursery', text: 'Play-based EYFS childminding in a home setting in Bethnal Green, with home-cooked meals. Enquire to check availability.', tone: 'teal', scene: 0 },
-  { id: 'babysitting', area: 'North London', title: 'Babysitting', text: 'Evening babysitting in your own home for work or social commitments, billed clearly by the hour with no agency booking fees.', tone: 'orange', scene: 1 },
-  { id: 'nanny', area: 'North London', title: 'Nanny Care', text: 'Daytime sole-charge nanny care and after-school pick-ups in your child’s own familiar environment.', tone: 'blue', scene: 2 },
-  { id: 'evening-weekend', area: 'North London', title: 'Evening & Weekend', text: 'Evening and scheduled weekend sessions for the times a standard day does not reach. Availability depends on the booking.', tone: 'yellow', scene: 3 },
-  { id: 'siblings', area: 'North London', title: 'Sibling Care', text: 'Care for brothers and sisters together, with a combined rate of £35 per hour for two siblings.', tone: 'mint', scene: 4 },
-  { id: 'full-day', area: 'North London', title: 'Full-Day Arrangements', text: 'A consistent full day of care for £180 per 8-hour day: developmental EYFS activities, rest, and freshly prepared meals.', tone: 'teal', scene: 5 },
+  { id: 'nanny', title: 'Nanny care', tone: 'teal', where: 'In your home', text: 'Regular care for your children in your own home, on the days and hours that suit your family.' },
+  { id: 'babysitting', title: 'Babysitting', tone: 'tangerine', where: 'In your home', text: 'Someone you can talk to directly, looking after your children at home when you need an evening or a few hours.' },
+  { id: 'evening-weekend', title: 'Evening & weekend care', tone: 'sky', where: 'In your home', text: 'Care outside the usual working day. Availability depends on the booking and is confirmed with you first.' },
+  { id: 'full-day', title: 'Full-day childcare', tone: 'sun', where: 'In your home', text: 'A full day of care at home, with the hours and routine agreed with you beforehand.' },
+  { id: 'siblings', title: 'Sibling care', tone: 'mint', where: 'In your home', text: 'Brothers and sisters looked after together, whatever their ages between 6 months and 10 years.' },
 ];
 
-/** PROVISIONAL draft copy: a process outline, not a published timetable. */
+export const why = [
+  { title: 'Direct communication', text: 'You speak to Mihaela herself, before and after every booking. No agency in between.' },
+  { title: 'A familiar home', text: 'Your children stay in their own surroundings, with their own toys, routines and bedtime.' },
+  { title: 'Personal attention', text: 'One carer getting to know your family, rather than a rota of different faces.' },
+  { title: 'Arranged with you', text: 'Days, hours and routines are talked through and agreed with you before care begins.' },
+];
+
+/** PROVISIONAL process outline (OWNER-APPROVAL): describes how an enquiry is handled, not a timetable. */
 export const steps = [
-  { tag: 'Step 1', title: 'Tell us what you need', text: 'Share the type of care, your children’s ages, the area and the times you have in mind.' },
-  { tag: 'Step 2', title: 'We check availability', text: 'Bookings depend on your requirements and our availability, so we confirm before anything is agreed.' },
-  { tag: 'Step 3', title: 'Agree the arrangement', text: 'Rates, hours and any sibling arrangement are talked through and confirmed with you.' },
-  { tag: 'Step 4', title: 'Care begins', text: 'Little moments start, whether in the East London home nursery or at your own front door.' },
+  { title: 'Send an enquiry', text: 'Tell Mihaela the type of care, your children’s ages, your area and when you need care.' },
+  { title: 'Talk it through', text: 'Mihaela replies to discuss availability and what your family needs.' },
+  { title: 'Agree the arrangement', text: 'Hours, routines and rates are agreed with you before anything starts.' },
 ];
 
 export const faqs = [
-  { q: 'How is Kids Castle regulated in the UK?', a: 'Kids Castle is registered with Tiney, an Ofsted-registered childminder agency, and follows the Early Years Foundation Stage (EYFS) framework. Care is provided by a Paediatric First Aid certified childminder with Enhanced DBS clearance, with public liability cover and safeguarded premises.' },
-  { q: 'Where do I drop my child off, and where can you travel for babysitting?', a: 'The home nursery is at 16 Montgomery Lodge, Bethnal Green, East London. For nanny and evening babysitting bookings we travel to your home across North London, including Islington, Highbury, Angel, Stoke Newington, Finsbury Park, Holloway, Crouch End and the Camden borders.' },
-  { q: 'What are your rates?', a: 'Children under two are £25 per hour. Children aged three and over are £20 per hour. Two siblings are £35 per hour in total, and a full day of 8 hours is £180. We are still confirming pricing for two-year-olds and whether home nursery and in-home prices differ.' },
-  { q: 'How are meals and allergies managed?', a: 'Full-day placements include home-cooked lunches and healthy snacks. We can cater for vegetarian, vegan and halal diets and specific allergies, prepared in a clean food preparation area.' },
-  { q: 'How do settling-in sessions work?', a: 'Before a full placement we arrange short, gradual settling visits so your child can explore the space, get to know their carer and ease in at their own pace.' },
-  { q: 'Do you offer evening and weekend care?', a: 'Yes. Evening babysitting and scheduled weekend sessions can be arranged. Bookings depend on your family’s requirements and our availability.' },
-  { q: 'Can you look after siblings together?', a: 'Yes. Two siblings are charged at £35 per hour in total.' },
-  { q: 'How do I book a space or check availability?', a: 'Use the enquiry form, or email 0998.kidscastle@gmail.com with your child’s age, the schedule you need and your area. We will arrange an introductory call or a visit to the setting.' },
+  { q: 'Where does the childcare take place?', a: 'In your own home. Care at Mihaela’s own address is awaiting clarification from Ofsted and is not currently offered.' },
+  { q: 'Who will look after my children?', a: 'Mihaela Oliva. She works independently and is the only childcare provider; there is no team or agency behind Kids Castle.' },
+  { q: 'What ages do you care for?', a: 'Children from 6 months to 10 years old, including brothers and sisters together.' },
+  { q: 'How is Mihaela registered?', a: site_ofsted_answer() },
+  { q: 'How much does childcare cost?', a: 'Rates depend on your family’s requirements, the ages of the children and the hours of care needed. Get in touch to discuss your arrangement.' },
+  { q: 'How do I check availability?', a: 'Send an enquiry through the form or email 0998.kidscastle@gmail.com with the type of care, your children’s ages, your area and the days or hours you have in mind. Mihaela will reply to talk it through.' },
 ];
+function site_ofsted_answer() {
+  return 'Mihaela Oliva is registered with Ofsted as a home childcarer on the voluntary part of the Childcare Register (registration number 2861033). This is a registration, not an inspection grade. You can check it on Ofsted’s website.';
+}
 
-/** Daily rhythm at the East London home nursery, as supplied by the client. */
-export const dailyRhythm = [
-  { time: '08:00 – 09:00', title: 'Welcome and settling', text: 'Welcoming arrivals, gentle free play and a morning greeting circle.' },
-  { time: '09:00 – 09:30', title: 'Morning snack', text: 'A healthy snack with fresh water and milk.' },
-  { time: '09:30 – 10:45', title: 'Early learning', text: 'EYFS activities: mark-making, building-block construction, counting games and sensory trays.' },
-  { time: '10:45 – 11:45', title: 'Outdoors', text: 'Outdoor play, park exploration and active physical play.' },
-  { time: '11:45 – 12:30', title: 'Hot lunch', text: 'A freshly prepared hot lunch with relaxed table manners and conversation.' },
-  { time: '12:30 – 14:00', title: 'Rest', text: 'Quiet rest, supervised naps in dedicated cot spaces and gentle reading.' },
-  { time: '14:00 – 15:15', title: 'Creative time', text: 'Music, nursery rhymes, painting and imaginative play.' },
-  { time: '15:15 – 15:45', title: 'Afternoon snack', text: 'A fruit snack and a hydration break.' },
-  { time: '15:45 – 17:00', title: 'Free play and home time', text: 'Free-flow indoor play, a daily milestone review and parent handover.' },
-];
-
-/** Areas, as supplied by the client. */
-export const areas = {
-  east: {
-    authority: 'London Borough of Tower Hamlets',
-    catchments: ['Bethnal Green', 'Shoreditch', 'Globe Town', 'Cambridge Heath', 'Mile End', 'Bow', 'Stepney', 'Victoria Park borders'],
-    stations: ['Bethnal Green (Central line)', 'Cambridge Heath (Overground)', 'Bethnal Green (Overground)', 'Whitechapel (Elizabeth line)'],
-    postcodes: ['E2', 'E1', 'E3', 'E8', 'E9'],
-  },
-  north: {
-    catchments: ['Islington', 'Highbury', 'Angel', 'Stoke Newington', 'Finsbury Park', 'Holloway', 'Crouch End', 'Camden borders'],
-    postcodes: ['N1', 'N5', 'N16', 'N4', 'N7', 'NW1'],
-  },
-};
-
-export const eastFaqs = [
-  { q: 'Where is the home nursery and how do I get there?', a: 'The home nursery is at 16 Montgomery Lodge, Bethnal Green, in the London Borough of Tower Hamlets. Nearby stations include Bethnal Green (Central line and Overground), Cambridge Heath (Overground) and Whitechapel (Elizabeth line), which suits parents commuting towards Liverpool Street, the City or Canary Wharf.' },
-  { q: 'Which areas do families come from?', a: 'Families drop off from Bethnal Green, Shoreditch, Globe Town, Cambridge Heath, Mile End, Bow, Stepney and the Victoria Park borders, across the E2, E1, E3, E8 and E9 postcode areas.' },
-  { q: 'What does a day at the home nursery look like?', a: 'Days run from welcoming arrivals at 08:00 to parent handover by 17:00, with play-based EYFS learning, outdoor time, a hot lunch, supervised rest and creative play. The full timetable is on this page.' },
-  { q: 'How are meals and allergies managed?', a: 'Full-day placements include home-cooked lunches and healthy snacks. We can cater for vegetarian, vegan and halal diets and specific allergies, prepared in a clean food preparation area.' },
-  { q: 'How do settling-in sessions work?', a: 'Before a full placement we arrange short, gradual settling visits so your child can explore the space, get to know their carer and ease in at their own pace.' },
-  { q: 'What does it cost?', a: 'Children under two are £25 per hour, children aged three and over are £20 per hour, two siblings are £35 per hour in total, and a full day of 8 hours is £180. Pricing for two-year-olds is still being confirmed, so please ask.' },
-];
-
-export const northFaqs = [
-  { q: 'Where do you travel for babysitting and nanny care?', a: 'We come to your home across North London, including Islington, Highbury, Angel, Stoke Newington, Finsbury Park, Holloway, Crouch End and the Camden borders (N1, N5, N16, N4, N7 and NW1), and surrounding East London neighbourhoods.' },
-  { q: 'Are your babysitters and nannies checked?', a: 'Care is provided by a Paediatric First Aid certified childminder with Enhanced DBS clearance, registered with Tiney, an Ofsted-registered childminder agency, and following the EYFS framework. Public liability cover is in place.' },
-  { q: 'What kinds of care can I book?', a: 'Daytime sole-charge nanny care, after-school pick-ups, evening babysitting for work or social commitments, and scheduled weekend sessions.' },
-  { q: 'Are there agency fees?', a: 'No. Care is billed clearly by the hour, with no ongoing agency membership or booking commission.' },
-  { q: 'What are the hourly rates?', a: 'Children under two are £25 per hour, children aged three and over are £20 per hour, and two siblings are £35 per hour in total. Pricing for two-year-olds is still being confirmed, so please ask.' },
-  { q: 'How do I check availability?', a: 'Use the enquiry form, or email 0998.kidscastle@gmail.com with your child’s age, the schedule you need and your area. We will arrange an introductory call.' },
+/**
+ * The nine Google reviews, quoted exactly as posted (spelling and punctuation kept).
+ * Source: the Google Business Profile, retrieved 2026-11-04. Dates are not shown because Google only gives relative dates.
+ * `note` flags wording the owner may want to review before these stay public (references to a nursery, staff or premises).
+ * `lead` marks reviews used as highlights on the Home and About pages.
+ */
+export type Review = { id: string; name: string; text: string; lead?: boolean; note?: string };
+export const reviews: Review[] = [
+  { id: 'adelin', name: 'Adelin Bejenaru', lead: true, text: 'Mihaela is a truly wonderful person with a big heart and a genuine passion for working with children. Her dedication, patience and love for little ones are reflected in everything she does. Kids Castle Daycare is a lovely, safe and welcoming environment where children can learn, play, grow and feel loved. You can truly see how much effort, care and attention Mihaela puts into her work every single day. Her kindness, professionalism and commitment make a real difference in children\'s lives. Highly recommended! ❤️ Thank you, Mihaela, for everything you do!' },
+  { id: 'alexandra', name: 'Alexandra Demian', lead: true, text: 'An absolutely wonderful nanny! ❤️ She is kind, caring, patient, and truly amazing with children. She creates a warm, safe, and loving environment where little ones feel happy and comfortable. Her dedication, kindness, and genuine love for children really shine through. I would highly recommend her to any family looking for someone trustworthy, reliable, and truly special! 🌸' },
+  { id: 'madhu', name: 'madhu shalini', lead: true, text: 'Mihaela is an amazing person! My daughter loves her and so does Michaela. I love the way she cares all the kids! She makes every kid feel special and home.' },
+  { id: 'larisa', name: 'Larisa Oliva', text: 'When is about our kids the first thing in mind is there safety and security, also an happy environment! When we choose Kids Castle daycare we see that my kids will be loved, cared and supported through all aspects!' },
+  { id: 'irina', name: 'Irina Oliva', note: 'Refers to "this place" and children coming in to play, which suggests premises.', text: 'I want to say that this place is the most valuable place that I ever been, my grandchildren love to came in and play , and they get to meet Mihaela the key person and she’s totally lovely , her care and learning structure is helping all the parents that they came to her to fell like a family ! If I can describe you’re settings will be supportive. caring, , respectful and resilient little explorator!' },
+  { id: 'cristina', name: 'Cristina Ivan', note: 'Says the child loves to come "at your house", which suggests care at Mihaela’s home.', text: 'I highly recommend. I can t thank you enough for your help and for the way you take care of my son! He loves to come at your house ! He is very happy every times I take him there! 🥰🥰' },
+  { id: 'miha', name: 'Miha Tecu', note: 'Describes a "nursery" and "staff".', text: 'Absolutely lovely nursery! ❤️ The staff are so caring, kind and welcoming. I have complete peace of mind knowing my little one is happy, safe and well looked after. Couldn\'t recommend them enough! ❤️' },
+  { id: 'yasin', name: 'Yasin Dewan', note: 'Describes a "nursery" and "staff".', text: 'Kids Castle Daycare and Nursery is a wonderful place for children! The staff are incredibly kind, caring, friendly, and professional. They create a warm, safe, and welcoming environment where children can feel happy, comfortable, and confident. A special thank you to the lovely lady mihaela who runs the nursery for her hard work and dedication. I would highly recommend Kids Castle Daycare and Nursery to any parent looking for a caring and trustworthy place for their child.' },
+  { id: 'rabbi', name: 'Rabbi Uddin', note: 'Describes a "children\'s care centre" and a "team".', text: 'A wonderful children\'s care centre with a warm, friendly and caring team. The staff are very supportive, helpful and kind. Highly recommended for their excellent service' },
 ];

@@ -1,1 +1,15 @@
-{ "trailingSlash": false }
+{
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/east-london-home-nursery",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/north-london-babysitting",
+      "destination": "/services",
+      "permanent": true
+    }
+  ]
+}

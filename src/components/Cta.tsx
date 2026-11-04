@@ -1,18 +1,22 @@
 import { Link } from 'react-router-dom';
-import { Arrow, Magnetic, Words } from './Motion';
+import { Arrow, Magnetic } from './Motion';
 import { Cutout } from './Cutout';
+import { site } from '../data/site';
 
-const bricks = ['teal', 'tangerine', 'sky', 'white'];
-export function Cta() {
+export function Cta({ title = 'Let’s talk about what your family needs.' }: { title?: string }) {
   return (
     <section className="cta" aria-labelledby="cta-title">
-      <div className="wrap cta-inner">
-        <h2 id="cta-title"><Words text="Tell us what your family needs." /></h2>
-        <p>Share the type of care, your children’s ages, the area and the times you have in mind. We’ll check availability and talk it through.</p>
-        <Magnetic><Link to="/contact" className="btn btn--navy btn--lg">Send an enquiry<Arrow /></Link></Magnetic>
+      <div className="wrap cta-in">
+        <div>
+          <h2 id="cta-title">{title}</h2>
+          <p>Tell Mihaela a little about your children and the care you have in mind. She will reply to talk it through, with no obligation.</p>
+          <div className="cta-row">
+            <Magnetic><Link to="/contact" className="btn btn--ink">Enquire about childcare<Arrow /></Link></Magnetic>
+            <a className="cta-mail" href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
+          </div>
+        </div>
+        <Cutout name="teddy" w={872} h={900} className="art-cta" />
       </div>
-      <Cutout name="child" w={900} h={808} className="art-letter" />
-      {bricks.map((c, i) => <span key={c} className={`float-brick fb-${i} fb--${c}`} aria-hidden="true" />)}
     </section>
   );
 }

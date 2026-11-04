@@ -1,51 +1,69 @@
-import { Suspense, lazy } from 'react';
 import { Link } from 'react-router-dom';
-import { m } from 'motion/react';
-import { Arrow, ScrollWords, Words } from '../components/Motion';
+import { Arrow, Reveal, Words } from '../components/Motion';
+import { NameBlocks } from '../components/Blocks';
+import { ReviewCard, leadReviews } from '../components/Reviews';
 import { Cutout } from '../components/Cutout';
-const Faq = lazy(() => import('../components/Faq').then((m) => ({ default: m.Faq })));
 import { Cta } from '../components/Cta';
-import { site } from '../data/site';
+import { site, why } from '../data/site';
 
 export default function About() {
   return (
     <>
-      <section className="page-head page-head--teal">
+      <section className="page-head page-head--about" aria-labelledby="h1">
         <div className="wrap">
-          <h1><Words text="About Kids Castle" immediate /></h1>
+          <p className="eyebrow">About Mihaela</p>
+          <h1 id="h1" className="h1-xl">Hello, I’m <em className="mark mark--sun">Mihaela.</em></h1>
+          <NameBlocks />
         </div>
       </section>
-      <section className="section">
-        <div className="wrap">
-          {/* PROVISIONAL draft copy. Owner biography is configurable and left out until the client supplies it. */}
-          <ScrollWords className="statement statement--art" text={`Kids Castle Daycare offers two ways of caring for children: a home nursery setting in ${site.nursery.area}, and babysitting and nanny care in the family’s own home across North London.`} />
-          <Cutout name="nursery" w={682} h={760} className="art-about" />
+
+      <section className="section" aria-labelledby="who-title">
+        <div className="wrap about-grid">
+          <Reveal className="about-main">
+            {/* OWNER-APPROVAL: only confirmed facts are used. Add personal story, experience and qualifications in her own words once she supplies them. */}
+            <h2 id="who-title" className="h-section">The person behind Kids Castle.</h2>
+            <p className="lead">Kids Castle is run personally by Mihaela Oliva, who provides personal nanny and babysitting care for children from 6 months to 10 years.</p>
+            <p>Mihaela works independently and is the only childcare provider. There is no team or agency behind the name: when you enquire, you are speaking to the person who will care for your children.</p>
+            <p>Care takes place in your own home, with days, hours and routines agreed with you before anything begins.</p>
+            <p><Link to="/contact" className="btn btn--tangerine">Enquire about childcare<Arrow /></Link></p>
+          </Reveal>
+          <Reveal className="about-side" delay={0.1}>
+            <Cutout name="girl" w={900} h={750} className="art-about" />
+          </Reveal>
         </div>
       </section>
-      <section className="tiles" aria-label="At a glance">
-        <div className="tile tile--yellow"><span>Home nursery</span><strong>East London</strong></div>
-        <div className="tile tile--blue"><span>Babysitting and nannies</span><strong>North London</strong></div>
-        <div className="tile tile--orange"><span>Hourly rate from</span><strong>£20 per child</strong></div>
-        <div className="tile tile--teal"><span>Siblings</span><strong>£35 an hour for two</strong></div>
-      </section>
-      <section className="collage" aria-label="Moments from the day">
-        <m.img className="collage-a" src="/photos/reading.webp" alt="A carer reading a picture book to a group of young children on the floor" width={1024} height={536} loading="lazy" initial={{ opacity: 0, x: -60 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }} />
-        <m.img className="collage-b" src="/photos/painting.webp" alt="Children painting at a long table with a carer beside them" width={1200} height={886} loading="lazy" initial={{ opacity: 0, y: 60, rotate: 4 }} whileInView={{ opacity: 1, y: 0, rotate: 2 }} viewport={{ once: true }} transition={{ duration: 0.9, delay: 0.15, ease: [0.22, 1, 0.36, 1] }} />
-      </section>
-      <section className="section">
+
+      <section className="section section--tint" aria-labelledby="work-title">
         <div className="wrap">
-          <h2 className="h-section narrow"><Words text="How we work" /></h2>
-          <div className="values">
-            <article className="value"><h3>Shaped around you</h3><p>Every booking depends on your family’s requirements and our availability, so we talk it through first.</p></article>
-            <article className="value"><h3>Clear about what’s confirmed</h3><p>Where a rate, date or detail isn’t settled yet, we say so rather than guess.</p></article>
-            <article className="value"><h3>Evenings, weekends, full days</h3><p>Hourly, evening, weekend and full-day care can be arranged, including for siblings together.</p></article>
+          <h2 id="work-title" className="h-section"><Words text="Working with one carer." /></h2>
+          <ul className="why-list why-list--wide">
+            {why.map((w, i) => (
+              <li key={w.title}><span className="why-n" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span><div><h3>{w.title}</h3><p>{w.text}</p></div></li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="section" aria-labelledby="reg-title">
+        <div className="wrap reg">
+          <div>
+            <p className="eyebrow">Registration</p>
+            <h2 id="reg-title" className="h-section">Registered with Ofsted.</h2>
+          </div>
+          <div>
+            <p className="lead">{site.ofsted.statement}</p>
+            <p>Registered on {site.ofsted.registered}. This is a registration, not an inspection grade. You can look up the registration on <a className="textlink" href={site.ofsted.searchUrl} target="_blank" rel="noreferrer">Ofsted’s website<span className="visually-hidden"> (opens in a new tab)</span></a> using the number above.</p>
           </div>
         </div>
       </section>
-      <section className="faq-section">
-        <div className="wrap faq-grid">
-          <h2 className="h-section"><Words text="Questions parents ask" /></h2>
-          <div><Suspense fallback={<div style={{ minHeight: 480 }} />}><Faq /></Suspense><p style={{ marginTop: 28 }}><Link to="/contact" className="btn">Send an enquiry<Arrow /></Link></p></div>
+
+      <section className="section reviews-band" aria-labelledby="say-title">
+        <div className="wrap">
+          <div className="sec-head sec-head--row">
+            <h2 id="say-title" className="h-section"><Words text="What parents say." /></h2>
+            <Link to="/reviews" className="textlink">All {site.google.count} reviews<Arrow /></Link>
+          </div>
+          <div className="rev-trio">{leadReviews.map((r) => <ReviewCard key={r.id} r={r} />)}</div>
         </div>
       </section>
       <Cta />

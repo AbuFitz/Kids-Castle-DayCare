@@ -1,112 +1,107 @@
-import { Suspense, lazy } from 'react';
 import { Link } from 'react-router-dom';
-import { m } from 'motion/react';
-import { Arrow, Magnetic, Marquee, Reveal, ScrollWords, Words } from '../components/Motion';
+import { Arrow, Magnetic, Reveal, Words } from '../components/Motion';
+import { NameBlocks } from '../components/Blocks';
+import { ReviewCard, leadReviews } from '../components/Reviews';
+import { Trust } from '../components/Trust';
 import { Cutout } from '../components/Cutout';
-import { PhotoBand } from '../components/PhotoBand';
-import { GoogleTrust } from '../components/GoogleTrust';
-import { Credentials, DailyRhythm } from '../components/Landing';
-import { BrickMark } from '../components/BrickMark';
-import { Steps } from '../components/Steps';
-import { Rates } from '../components/Rates';
 import { Cta } from '../components/Cta';
-import { site } from '../data/site';
-const Faq = lazy(() => import('../components/Faq').then((x) => ({ default: x.Faq })));
-
-const chips = [
-  [['Little', 'teal'], ['moments.', 'sun']],
-  [['Big', 'tangerine'], ['beginnings.', 'sky']],
-] as const;
+import { services, site, why } from '../data/site';
 
 export default function Home() {
-  let n = 0;
-  const address = site.nursery.showFullAddress ? site.nursery.address : null;
+  const [feature, ...rest] = services;
   return (
     <>
       <section className="hero" aria-labelledby="hero-title">
         <div className="wrap hero-grid">
           <div className="hero-copy">
-            <h1 id="hero-title" className="chips">
-              {chips.map((line, li) => (
-                <span key={li} className="chip-line">
-                  {line.map(([w, c]) => {
-                    const i = n++;
-                    return (
-                      <m.span key={w} className={`chip chip--${c} ${i % 2 ? 'tilt-r' : 'tilt-l'}`}
-                        initial={{ y: -90, opacity: 0, rotate: i % 2 ? 6 : -6 }} animate={{ y: 0, opacity: 1, rotate: 0 }}
-                        transition={{ type: 'spring', stiffness: 130, damping: 12, delay: 0.1 + i * 0.14 }}>{w}</m.span>
-                    );
-                  })}
-                </span>
-              ))}
-              <span className="h1-sub">Registered home nursery in East London and mobile childcare across North London</span>
+            <p className="eyebrow">{site.descriptor}</p>
+            <h1 id="hero-title">
+              <span className="h1-l">Little <em className="mark mark--teal">moments.</em></span>
+              <span className="h1-l">Big <em className="mark mark--sun">beginnings.</em></span>
             </h1>
             <p className="hero-sub">{site.intro}</p>
-            <m.div className="hero-cta" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.95, duration: 0.7 }}>
-              <Magnetic><Link to="/contact" className="btn btn--navy">Send an enquiry<Arrow /></Link></Magnetic>
-              <Link to="/services" className="btn btn--ghost">Explore our care</Link>
-            </m.div>
-            <GoogleTrust />
+            <div className="hero-cta">
+              <Magnetic><Link to="/contact" className="btn btn--tangerine">Enquire about childcare<Arrow /></Link></Magnetic>
+              <Link to="/services" className="btn btn--ghost">Explore our services</Link>
+            </div>
+            <Trust />
           </div>
-          <div className="hero-art">
-            <span className="hero-back" aria-hidden="true" />
-            <div className="hero-card"><BrickMark className="hero-bricks" /></div>
-            <Cutout name="../photos/child" w={820} h={1250} className="art-child" delay={0.9} />
-            <span className="price-badge">from £20<br />an hour</span>
+          <div className="hero-art" aria-hidden="true">
+            <span className="hero-star hero-star--a" /><span className="hero-star hero-star--b" /><span className="hero-star hero-star--c" />
+            <div className="hero-panel"><img src="/art/castle.webp" alt="" width={900} height={703} fetchPriority="high" decoding="async" /></div>
           </div>
         </div>
       </section>
 
-      <Marquee items={['Home nursery', 'Babysitting', 'Nanny care', 'Sibling care', 'Evenings & weekends', 'Full-day arrangements']} />
+      <section className="section meet" aria-labelledby="meet-title">
+        <div className="wrap meet-grid">
+          <Reveal className="meet-art"><NameBlocks /></Reveal>
+          <Reveal className="meet-copy" delay={0.1}>
+            <p className="eyebrow">Meet Mihaela</p>
+            {/* OWNER-APPROVAL: draft introduction using only confirmed facts. Add her own words, experience and qualifications once supplied. */}
+            <h2 id="meet-title" className="h-section">Hello, I’m Mihaela.</h2>
+            <p className="lead">I’m the person behind Kids Castle, providing personal nanny and babysitting care for children from 6 months to 10 years.</p>
+            <p>Kids Castle is just me, so when you get in touch you are speaking to the person who will be looking after your children.</p>
+            <p><Link to="/about" className="textlink">More about Mihaela<Arrow /></Link></p>
+          </Reveal>
+        </div>
+      </section>
 
-      <section className="section" aria-labelledby="care-title">
+      <section className="section section--tint" aria-labelledby="svc-title">
         <div className="wrap">
-          <h2 id="care-title" className="visually-hidden">Our care</h2>
-          {/* PROVISIONAL draft copy based on verified facts only; owner biography to be added once supplied. */}
-          <ScrollWords className="statement" text="A home nursery in Bethnal Green, and babysitters and nannies in your own home across North London. Every arrangement is shaped around the family it is for." />
-          <div className="care-grid">
-            <Reveal className="care-a">
-              <article className="card card--teal">
-                <p className="card-area">East London</p>
-                <h3><Link to="/east-london-home-nursery">The home nursery</Link></h3>
-                <p>Childminding in a home setting in Bethnal Green.</p>
-                {address && <address>{address.line1}<br />{address.area}, {address.city} {address.postcode}</address>}
-                <Cutout name="nursery" w={682} h={760} className="art-nursery" delay={0.1} />
+          <div className="sec-head">
+            <p className="eyebrow">Our services</p>
+            <h2 id="svc-title" className="h-section"><Words text="Care that comes to you." /></h2>
+            <p className="lead">All childcare takes place in your own family home, arranged around your routine.</p>
+          </div>
+          <div className="svc-grid">
+            <Reveal className="svc-feature">
+              <article className={`svc svc--${feature.tone}`}>
+                <div>
+                  <h3>{feature.title}</h3>
+                  <p>{feature.text}</p>
+                  <p><Link to="/services" className="textlink">How it works<Arrow /></Link></p>
+                </div>
+                <Cutout name="nursery" w={682} h={760} className="art-svc" />
               </article>
             </Reveal>
-            <Reveal className="care-b" delay={0.12}>
-              <article className="card card--sky">
-                <p className="card-area">North London</p>
-                <h3><Link to="/north-london-babysitting">At your front door</Link></h3>
-                <p>Babysitters and nannies in your own home, arranged around your family’s routine and availability.</p>
-                <ul className="pills"><li>Babysitting</li><li>Nanny care</li><li>Siblings together</li></ul>
-                <Cutout name="nanny" w={531} h={760} className="art-nanny" delay={0.2} />
-              </article>
-            </Reveal>
-            {[
-              ['Evening & weekend', 'Cover for the times a standard day does not reach. Availability depends on the booking.', 'sun'],
-              ['Full-day arrangements', 'A consistent full day of care for £180 per 8-hour day, with EYFS activities, rest and freshly prepared meals.', 'white'],
-              ['Sibling care', 'Brothers and sisters looked after together, at a combined rate of £35 an hour for two.', 'tangerine'],
-            ].map(([t, d, c], i) => (
-              <Reveal key={t} className="care-s" delay={i * 0.1}><article className={`card card--${c}`}><h3>{t}</h3><p>{d}</p>{c === 'sun' && <Cutout name="evening" w={760} h={690} className="art-evening" />}</article></Reveal>
+            {rest.map((s, i) => (
+              <Reveal key={s.id} delay={i * 0.06}>
+                <article className={`svc svc--small svc--${s.tone}`}><h3>{s.title}</h3><p>{s.text}</p></article>
+              </Reveal>
             ))}
           </div>
-          <p style={{ marginTop: 32 }}><Link to="/services" className="btn btn--navy">All services<Arrow /></Link></p>
         </div>
       </section>
 
-      <section className="section section--tight" aria-label="Registration and safeguarding"><div className="wrap"><Credentials /></div></section>
-      <PhotoBand />
-      <Rates />
-      <Steps />
-      <DailyRhythm />
+      <section className="section" aria-labelledby="why-title">
+        <div className="wrap why">
+          <div>
+            <p className="eyebrow">Personal care</p>
+            <h2 id="why-title" className="h-section"><Words text="Why families choose an independent nanny." /></h2>
+          </div>
+          <ul className="why-list">
+            {why.map((w, i) => (
+              <li key={w.title}><span className="why-n" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span><div><h3>{w.title}</h3><p>{w.text}</p></div></li>
+            ))}
+          </ul>
+        </div>
+      </section>
 
-      <GoogleTrust variant="band" />
-
-      <section className="faq-section" id="faq" aria-labelledby="faq-title">
-        <div className="wrap faq-grid">
-          <h2 id="faq-title" className="h-section"><Words text="Questions parents ask." /></h2>
-          <Suspense fallback={<div style={{ minHeight: 480 }} />}><Faq /></Suspense>
+      <section className="section reviews-band" aria-labelledby="rev-title">
+        <div className="wrap">
+          <div className="sec-head sec-head--row">
+            <div>
+              <p className="eyebrow">Parent reviews</p>
+              <h2 id="rev-title" className="h-section"><Words text="In parents’ own words." /></h2>
+            </div>
+            <Link to="/reviews" className="textlink">Read all {site.google.count} reviews<Arrow /></Link>
+          </div>
+          <div className="rev-lead">
+            <ReviewCard r={leadReviews[0]} featured />
+            <div className="rev-side"><ReviewCard r={leadReviews[1]} /></div>
+          </div>
+          <p className="fine">Reviews are quoted exactly as posted on Google.</p>
         </div>
       </section>
       <Cta />

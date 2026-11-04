@@ -39,7 +39,7 @@ export function Nav() {
             </ul>
           </nav>
           <div className="nav-right">
-            <Link to="/contact" className="btn nav-cta">Send an enquiry<Arrow /></Link>
+            <Link to="/contact" className="btn nav-cta">Enquire<Arrow /></Link>
             <button className="menu-btn" aria-expanded={open} aria-controls="mobile-menu" onClick={() => setOpen((o) => !o)}>{open ? 'Close' : 'Menu'}</button>
           </div>
         </div>
@@ -53,7 +53,7 @@ export function Nav() {
                   </m.div>
                 ))}
                 {site.contact.email && <small>Email <a href={`mailto:${site.contact.email}`} style={{ textDecoration: 'underline' }}>{site.contact.email}</a></small>}
-                <Link to="/contact" className="btn">Send an enquiry<Arrow /></Link>
+                <Link to="/contact" className="btn">Enquire<Arrow /></Link>
               </div>
             </m.div>
           )}

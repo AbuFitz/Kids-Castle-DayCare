@@ -3,10 +3,12 @@ import { createServer } from 'node:http';
 import { existsSync, readFileSync, statSync } from 'node:fs';
 import { extname, join, normalize } from 'node:path';
 const root = new URL('../dist/', import.meta.url).pathname;
+const redirects = Object.fromEntries((JSON.parse(readFileSync(new URL('../vercel.json', import.meta.url))).redirects ?? []).map((r) => [r.source, r]));
 const port = Number(process.argv[2] || 4173);
 const types = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.svg': 'image/svg+xml', '.png': 'image/png', '.webp': 'image/webp', '.woff2': 'font/woff2', '.json': 'application/json', '.ico': 'image/x-icon', '.xml': 'application/xml', '.txt': 'text/plain', '.webmanifest': 'application/manifest+json' };
 createServer((req, res) => {
   const path = decodeURIComponent(new URL(req.url, 'http://x').pathname);
+  if (redirects[path]) { res.writeHead(redirects[path].permanent ? 308 : 307, { Location: redirects[path].destination }).end(); return; }
   let file = normalize(join(root, path));
   if (!file.startsWith(root)) { res.writeHead(403).end(); return; }
   if (existsSync(file) && statSync(file).isDirectory()) file = join(file, 'index.html');

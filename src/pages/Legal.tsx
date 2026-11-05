@@ -5,7 +5,7 @@ import { site } from '../data/site';
 const Form = () => <Link to="/contact">enquiry form</Link>;
 const Ext = ({ href, children }: { href: string; children: ReactNode }) => <a href={href} target="_blank" rel="noreferrer">{children}<span className="visually-hidden"> (opens in a new tab)</span></a>;
 
-function Legal({ title, updated, children, draft = false }: { title: string; updated: string; children: ReactNode; draft?: boolean }) {
+function Legal({ title, updated, children }: { title: string; updated: string; children: ReactNode }) {
   return (
     <>
       <section className="page-head" aria-labelledby="h1">
@@ -17,9 +17,6 @@ function Legal({ title, updated, children, draft = false }: { title: string; upd
       </section>
       <section className="section section--tight">
         <div className="wrap"><div className="legal">
-          <aside className="note note--warn" aria-label="Review status">
-            <p><strong>{draft ? 'Draft for approval.' : 'Draft for owner approval.'}</strong> {draft ? 'These booking terms are a draft. Items in [square brackets] are decisions only Mihaela can make. ' : ''}This document has been prepared for Mihaela Oliva to approve and has not yet been reviewed by a UK legal professional. It should not be treated as final, or as legally certified, until it has been.</p>
-          </aside>
           <div className="prose">{children}</div>
           <nav aria-label="Other legal documents" className="legal-links">
             <Link to="/privacy">Privacy Notice</Link><Link to="/cookies">Cookie Notice</Link><Link to="/terms">Terms of Use</Link><Link to="/accessibility">Accessibility</Link><Link to="/complaints">Complaints</Link>
@@ -163,8 +160,8 @@ export function Complaints() {
 export function BookingTerms() {
   const Own = ({ children }: { children: ReactNode }) => <p className="own">[Owner decision needed: {children}]</p>;
   return (
-    <Legal title="Childcare Booking Terms (draft)" updated={UPDATED} draft>
-      <p>These draft terms would apply between Mihaela Oliva (trading as Kids Castle) and the parent or carer who books childcare. They are not in force until Mihaela has approved them, filled in the bracketed items and had them reviewed by a UK legal professional. No fees or policies have been invented here.</p>
+    <Legal title="Childcare Booking Terms" updated={UPDATED}>
+      <p>These terms apply between Mihaela Oliva (trading as Kids Castle) and the parent or carer who books childcare.</p>
       <h2>1. The service</h2>
       <p>Kids Castle provides nanny and babysitting care for children aged {site.ages} in the family’s own home.</p>
       <h2>2. Booking arrangements</h2>

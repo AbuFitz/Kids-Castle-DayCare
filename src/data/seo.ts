@@ -25,7 +25,7 @@ export const seo: Record<string, PageSeo> = {
   '/terms': { title: 'Website Terms of Use | Kids Castle', description: 'The terms for using the Kids Castle website.' },
   '/accessibility': { title: 'Accessibility Statement | Kids Castle', description: 'How accessible the Kids Castle website is, how it was tested and how to report a problem.' },
   '/complaints': { title: 'Complaints Information | Kids Castle', description: 'How to raise a concern or complaint about Kids Castle, and how to contact Ofsted.' },
-  '/booking-terms': { title: 'Childcare Booking Terms (Draft) | Kids Castle', description: 'Draft booking terms for Kids Castle childcare, awaiting owner approval.', noindex: true },
+  '/booking-terms': { title: 'Childcare Booking Terms | Kids Castle', description: 'The booking terms for Kids Castle childcare.', noindex: true },
 };
 export const notFoundSeo: PageSeo = { title: 'Page not found | Kids Castle', description: 'This page could not be found.', noindex: true };
 export const indexableRoutes = Object.entries(seo).filter(([, v]) => !v.noindex).map(([k]) => k);

@@ -86,8 +86,7 @@ export default function Home() {
             <h2 id="rev-title" className="h-section">In parents’ own words.</h2>
             <a href={site.google.url} target="_blank" rel="noreferrer" className="textlink">See them on Google<span className="visually-hidden"> (opens in a new tab)</span><Arrow /></a>
           </div>
-          <ReviewMarquee items={allReviews.slice(0, 5)} label="Parent reviews, first row" seconds={90} />
-          <ReviewMarquee items={allReviews.slice(5)} label="Parent reviews, second row" reverse seconds={80} />
+          <ReviewMarquee items={allReviews} label="Parent reviews" seconds={150} />
           <p className="fine">Reviews are quoted exactly as posted on Google.</p>
         </div>
       </section>

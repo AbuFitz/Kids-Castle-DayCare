@@ -1,6 +1,6 @@
-# Kids Castle: Nanny & Babysitting Services
+# Kids Castle Daycare & Home Nursery: nanny & babysitting services
 
-Website for Mihaela Oliva's independent nanny and babysitting service in London. Vite + React + TypeScript, prerendered at build time, deployed on Vercel.
+Website for Kids Castle (owner Mihaela Oliva): nanny and babysitting care in the family's own home, London. Vite + React + TypeScript, prerendered at build time, deployed on Vercel.
 
 ## Pages
 `/` Home · `/services` · `/about` · `/reviews` · `/contact` · legal: `/privacy`, `/cookies`, `/terms`, `/accessibility`, `/complaints`, `/booking-terms` (draft, `noindex`).
@@ -18,17 +18,20 @@ Single-page form → `POST /api/enquiry`: server-side zod validation, hidden hon
 ## SEO
 Set `SITE_URL` (for example `https://your-domain`) so canonical URLs, Open Graph URLs and `sitemap.xml` are generated. `/booking-terms` is `noindex` and left out of the sitemap. Unknown URLs serve the prerendered 404 with a real 404 status.
 
+## Contact routes
+The form, the business phone (`07467 500497`, `site.phone`) and WhatsApp on that number (floating button bottom-right on every page). No email address is published anywhere; the owner's email lives only in `site.private` and the Resend environment variables.
+
 ## Privacy / cookies
-No cookies, local storage, analytics, maps or third-party scripts; fonts are self-hosted. That is why there is a Cookie Notice and no consent banner. Adding any non-essential tracking would require a consent mechanism first.
+No cookies, local storage, analytics or third-party scripts; fonts are self-hosted and the area map is a pre-rendered OpenStreetMap image served from this site (credited on the page). That is why there is a Cookie Notice and no consent banner.
 
 ## Local checks
 `npm run build`, then `npm run serve:dist` (Vercel-like static server with redirects and a real 404).
 
-## Needs Mihaela's approval before launch
-- All copy marked `OWNER-APPROVAL` in the source (Meet Mihaela, About, process steps). No experience, qualifications or philosophy have been invented; add her own words when supplied.
-- **Reviews that mention a nursery, staff, a team or premises** (shown verbatim, flagged in `site.ts` with `note`): Irina Oliva, Cristina Ivan, Miha Tecu, Yasin Dewan, Rabbi Uddin. Decide whether to keep them public.
-- The "areas" list on the Services page (taken from earlier client material) and the Facebook link.
-- Rates, booking terms, retention periods, complaints timings (all marked in the legal pages).
-- The Google Business Profile still describes a daycare and home nursery; align it with the registration.
-- ICO data protection fee / registration for the enquiry data, and review of all legal pages by a UK legal professional.
-- Registered address is shown only in the Privacy Notice. Childcare at that address is awaiting clarification from Ofsted and is not advertised.
+## Needs the owner's approval before launch
+- Copy marked `OWNER-APPROVAL` in the source (home intro, About, process steps). The training list and "sessions can include" list on About are taken from Mihaela's own public flyer: check certificates before leaving them live.
+- **Rates are hidden.** Her flyer shows £25/hour (1 child) and £35/hour (2 children); the client was unsure, so nothing is shown. Re-enable via `site.unapprovedRates` once confirmed.
+- **Reviews that mention a nursery, staff, a team or premises** (verbatim, flagged in `site.ts`): Irina Oliva, Cristina Ivan, Miha Tecu, Yasin Dewan, Rabbi Uddin.
+- The trading name "Daycare & Home Nursery" is in the logo and titles as requested; Ofsted registration is as a home childcarer (details only on the About page), so no nursery premises or Early Years Register claims are made.
+- The "areas" list and map (from earlier client material), stock photographs (Unsplash, generic objects only) and the Facebook link.
+- Booking terms, retention periods, complaints timings (marked in the legal pages), ICO data protection fee, and review of all legal pages by a UK legal professional.
+- Registered address and email are not published.

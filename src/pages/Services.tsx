@@ -1,9 +1,9 @@
 import { Suspense, lazy } from 'react';
 import { Link } from 'react-router-dom';
-import { Arrow, Reveal, Words } from '../components/Motion';
+import { Arrow, Reveal } from '../components/Motion';
 import { Cutout } from '../components/Cutout';
 import { Cta } from '../components/Cta';
-import { faqs, services, site, steps } from '../data/site';
+import { beforeYouBook, faqs, services, site, steps } from '../data/site';
 const Faq = lazy(() => import('../components/Faq').then((x) => ({ default: x.Faq })));
 
 export default function Services() {
@@ -12,27 +12,26 @@ export default function Services() {
       <section className="page-head" aria-labelledby="h1">
         <div className="wrap page-head-grid">
           <div>
-            <p className="eyebrow">Our services</p>
             <h1 id="h1">Nanny &amp; babysitting care, <em className="mark mark--teal">at home.</em></h1>
-            <p className="lead">Personal childcare for children aged {site.ages}, provided in your own family home by Mihaela.</p>
+            <p className="lead">Personal childcare for children aged {site.ages}, provided in your own family home.</p>
           </div>
           <Cutout name="child" w={900} h={808} className="art-head" />
         </div>
       </section>
 
-      <section className="section" aria-label="Services">
+      <section className="section section--tight" aria-label="Services">
         <div className="wrap">
-          <dl className="svc-facts">
-            <div><dt>Where</dt><dd>In your own home</dd></div>
-            <div><dt>Ages</dt><dd>{site.ages}</dd></div>
-            <div><dt>How it is arranged</dt><dd>Agreed with you before care starts</dd></div>
-          </dl>
+          <ul className="facts" aria-label="At a glance">
+            <li><strong>Where</strong> In your own home</li>
+            <li><strong>Ages</strong> {site.ages}</li>
+            <li><strong>Arranged</strong> With you, before care starts</li>
+          </ul>
           <ol className="svc-rows">
             {services.map((s, i) => (
               <li key={s.id}>
-                <Reveal className={`svc-row svc-row--${s.tone}`}>
-                  <span className="svc-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
-                  <div className="svc-main"><h2>{s.title}</h2><p>{s.text}</p></div>
+                <Reveal className="svc-row">
+                  <span className={`svc-num svc-num--${s.tone}`} aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+                  <div><h2>{s.title}</h2><p>{s.text}</p></div>
                 </Reveal>
               </li>
             ))}
@@ -41,39 +40,30 @@ export default function Services() {
       </section>
 
       <section className="section section--tint" aria-labelledby="how-title">
-        <div className="wrap">
-          <div className="sec-head">
-            <p className="eyebrow">How it works</p>
-            <h2 id="how-title" className="h-section"><Words text="From enquiry to care." /></h2>
+        <div className="wrap how">
+          <div>
+            <h2 id="how-title" className="h-section">From enquiry to care.</h2>
+            <p className="lead">{site.ratesNote}</p>
+            <p><Link to="/contact" className="btn btn--tangerine">Send an enquiry<Arrow /></Link></p>
           </div>
           <ol className="steps">
-            {steps.map((s, i) => (
-              <li key={s.title}><span className="step-n" aria-hidden="true">{i + 1}</span><h3>{s.title}</h3><p>{s.text}</p></li>
-            ))}
+            {steps.map((s, i) => (<li key={s.title}><span className="step-n" aria-hidden="true">{i + 1}</span><div><h3>{s.title}</h3><p>{s.text}</p></div></li>))}
           </ol>
-          <aside className="note" aria-label="Rates">
-            <h3>Rates</h3>
-            <p>{site.ratesNote}</p>
-            <p><Link to="/contact" className="textlink">Discuss your arrangement<Arrow /></Link></p>
-          </aside>
         </div>
       </section>
 
-      <section className="section" aria-labelledby="area-title">
-        <div className="wrap area">
-          <div>
-            <h2 id="area-title" className="h-section"><Words text="Where Mihaela works." /></h2>
-            <p className="lead">Care is provided in your own home in London, including North London. Not sure whether you are within reach? Just ask.</p>
-          </div>
-          <ul className="chips-list" aria-label="Areas, including">
-            {site.areas.map((a) => <li key={a}>{a}</li>)}
+      <section className="section" aria-labelledby="book-title">
+        <div className="wrap book">
+          <h2 id="book-title" className="h-section">Choosing childcare? Worth checking.</h2>
+          <ul className="book-list">
+            {beforeYouBook.map((b) => (<li key={b.title}><h3>{b.title}</h3><p>{b.text}</p></li>))}
           </ul>
         </div>
       </section>
 
       <section className="faq-section" aria-labelledby="faq-title">
         <div className="wrap faq-grid">
-          <h2 id="faq-title" className="h-section"><Words text="Questions parents ask." /></h2>
+          <h2 id="faq-title" className="h-section">Questions parents ask.</h2>
           <Suspense fallback={<div style={{ minHeight: 360 }} />}><Faq items={faqs} /></Suspense>
         </div>
       </section>

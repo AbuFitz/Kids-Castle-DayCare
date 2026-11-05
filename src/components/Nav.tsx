@@ -3,6 +3,7 @@ import { Link, NavLink, useLocation } from 'react-router-dom';
 import { AnimatePresence, m, useScroll, useSpring } from 'motion/react';
 import { Logo } from './Logo';
 import { Arrow } from './Motion';
+import { PhoneIcon } from './Icons';
 import { nav, site } from '../data/site';
 
 export function Nav() {
@@ -39,6 +40,7 @@ export function Nav() {
             </ul>
           </nav>
           <div className="nav-right">
+            <a className="nav-phone" href={`tel:${site.phone.tel}`}><PhoneIcon /><span>{site.phone.display}</span></a>
             <Link to="/contact" className="btn nav-cta">Enquire<Arrow /></Link>
             <button className="menu-btn" aria-expanded={open} aria-controls="mobile-menu" onClick={() => setOpen((o) => !o)}>{open ? 'Close' : 'Menu'}</button>
           </div>
@@ -52,7 +54,6 @@ export function Nav() {
                     <NavLink className="m-link" to={n.to} end={n.to === '/'}>{n.label}<Arrow /></NavLink>
                   </m.div>
                 ))}
-                {site.contact.email && <small>Email <a href={`mailto:${site.contact.email}`} style={{ textDecoration: 'underline' }}>{site.contact.email}</a></small>}
                 <Link to="/contact" className="btn">Enquire<Arrow /></Link>
               </div>
             </m.div>

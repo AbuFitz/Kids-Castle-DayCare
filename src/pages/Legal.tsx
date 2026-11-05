@@ -2,8 +2,7 @@ import type { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { site } from '../data/site';
 
-const email = site.contact.email;
-const Mail = () => <a href={`mailto:${email}`}>{email}</a>;
+const Form = () => <Link to="/contact">enquiry form</Link>;
 const Ext = ({ href, children }: { href: string; children: ReactNode }) => <a href={href} target="_blank" rel="noreferrer">{children}<span className="visually-hidden"> (opens in a new tab)</span></a>;
 
 function Legal({ title, updated, children, draft = false }: { title: string; updated: string; children: ReactNode; draft?: boolean }) {
@@ -23,7 +22,7 @@ function Legal({ title, updated, children, draft = false }: { title: string; upd
           </aside>
           <div className="prose">{children}</div>
           <nav aria-label="Other legal documents" className="legal-links">
-            <Link to="/privacy">Privacy Notice</Link><Link to="/cookies">Cookie Notice</Link><Link to="/terms">Terms of Use</Link><Link to="/accessibility">Accessibility</Link><Link to="/complaints">Complaints</Link><Link to="/booking-terms">Booking Terms (draft)</Link>
+            <Link to="/privacy">Privacy Notice</Link><Link to="/cookies">Cookie Notice</Link><Link to="/terms">Terms of Use</Link><Link to="/accessibility">Accessibility</Link><Link to="/complaints">Complaints</Link>
           </nav>
         </div>
       </section>
@@ -37,10 +36,9 @@ export function Privacy() {
     <Legal title="Privacy Notice" updated={UPDATED}>
       <p>This notice explains how personal information is used when you contact Kids Castle through this website.</p>
       <h2>Who is responsible for your information</h2>
-      <p>Mihaela Oliva, trading as Kids Castle, is the data controller. {site.ofsted.statement}</p>
-      <address>{site.registeredAddress.map((l) => <span key={l}>{l}<br /></span>)}Email: <Mail /></address>
+      <p>Mihaela Oliva, trading as {site.fullName}, is the data controller. You can contact us through the <Form />.</p>
       <h2>What we collect</h2>
-      <p>When you send an enquiry we collect what you type into the form: your name, email address, optional phone number, the type of childcare you are asking about, your child’s age or age range, your area or postcode, your preferred dates or schedule, and any message you add. Please do not include medical or other sensitive details in the form.</p>
+      <p>If you call or message us on WhatsApp we will see your number and what you say. When you send an enquiry we collect what you type into the form: your name, email address, optional phone number, the type of childcare you are asking about, your child’s age or age range, your area or postcode, your preferred dates or schedule, and any message you add. Please do not include medical or other sensitive details in the form.</p>
       <p>Our hosting provider also keeps standard technical logs (such as IP address and the pages requested) for security and to keep the site running. We do not run analytics or advertising on this website.</p>
       <h2>Why we use it, and our lawful basis</h2>
       <ul>
@@ -53,6 +51,7 @@ export function Privacy() {
         <li><strong>Vercel Inc.</strong>: hosts the website and runs the form’s server function.</li>
         <li><strong>Resend</strong>: delivers the enquiry email to Mihaela and the confirmation email to you.</li>
         <li><strong>Google (Gmail)</strong>: provides the email inbox where enquiries are received.</li>
+        <li><strong>WhatsApp (Meta)</strong>: if you choose to message us on WhatsApp, WhatsApp processes that conversation under its own terms and privacy policy.</li>
       </ul>
       <p>We do not sell your information or share it for marketing.</p>
       <h2>Transfers outside the UK</h2>
@@ -62,7 +61,7 @@ export function Privacy() {
       <h2>Security</h2>
       <p>The website uses HTTPS. Enquiries are sent by email to a single mailbox. Access to that mailbox is limited to Mihaela.</p>
       <h2>Your rights</h2>
-      <p>You can ask us to give you a copy of your information, correct it, delete it, restrict or object to how we use it, and in some cases receive it in a portable format. To use any of these rights, email <Mail />. We will reply within one month.</p>
+      <p>You can ask us to give you a copy of your information, correct it, delete it, restrict or object to how we use it, and in some cases receive it in a portable format. To use any of these rights, send a message through the <Form /> or call us, and say it is a privacy request. We will reply within one month.</p>
       <h2>Complaints</h2>
       <p>If you are unhappy with how we use your information, please tell us first. You can also complain to the Information Commissioner’s Office (ICO) at <Ext href="https://ico.org.uk/make-a-complaint/">ico.org.uk/make-a-complaint</Ext>.</p>
       <h2>Children’s information</h2>
@@ -98,15 +97,15 @@ export function Terms() {
     <Legal title="Website Terms of Use" updated={UPDATED}>
       <p>By using this website you agree to these terms. They apply to the website only. Childcare arrangements are covered separately by any booking terms agreed with Mihaela.</p>
       <h2>About this website</h2>
-      <p>The website is operated by Mihaela Oliva, trading as Kids Castle. {site.ofsted.statement} Contact: <Mail />.</p>
+      <p>The website is operated by Mihaela Oliva, trading as {site.fullName}. You can contact us through the <Form />.</p>
       <h2>Information on the site</h2>
       <p>We try to keep the information accurate, but it is general and may change. Nothing on the website is a contract or an offer of childcare. Availability and arrangements are confirmed with you directly. Rates are discussed individually and are not published on this website.</p>
-      <h2>Registration</h2>
-      <p>Ofsted registration on the voluntary part of the Childcare Register is a registration, not an inspection grade, and does not mean Ofsted endorses or accredits the service.</p>
       <h2>Reviews</h2>
       <p>Reviews shown on this website are quoted from the Kids Castle Google Business Profile as posted. They are the opinions of the reviewers.</p>
       <h2>Using the enquiry form</h2>
       <p>Please give accurate information and use the form only for genuine enquiries. Do not submit sensitive or medical information through it. How we use what you send is explained in the <Link to="/privacy">Privacy Notice</Link>.</p>
+      <h2>Images</h2>
+      <p>Some photographs on this website are stock images used to illustrate the page. They do not show our clients, their children or their homes. The illustrations are original to Kids Castle.</p>
       <h2>Intellectual property</h2>
       <p>The Kids Castle name, logo, illustrations and text belong to Kids Castle or are used with permission. You may not copy them for commercial use without our written consent.</p>
       <h2>Links to other sites</h2>
@@ -137,7 +136,7 @@ export function Accessibility() {
       <h2>Known limitations</h2>
       <p>The Google reviews link and the Ofsted website open third-party sites, whose accessibility we do not control.</p>
       <h2>Tell us about a problem</h2>
-      <p>If you find something hard to use, or need information in another format, email <Mail />. We will try to reply within a few working days and to fix the problem.</p>
+      <p>If you find something hard to use, or need information in another format, send a message through the <Form />. We will try to reply within a few working days and to fix the problem.</p>
       <h2>If you are not happy with our reply</h2>
       <p>The Equality Advisory and Support Service (EASS) can advise you at <Ext href="https://www.equalityadvisoryservice.com/">equalityadvisoryservice.com</Ext>.</p>
     </Legal>
@@ -149,11 +148,11 @@ export function Complaints() {
     <Legal title="Complaints Information" updated={UPDATED}>
       <p>We want to know if something is not right. Raising a concern will never affect how your family is treated.</p>
       <h2>Speak to Mihaela first</h2>
-      <p>Mihaela is the only childcare provider, so the quickest way to put something right is to talk to her directly, in person or by email at <Mail />. Please say what happened and what you would like to see changed.</p>
+      <p>Mihaela is the only childcare provider, so the quickest way to put something right is to talk to her directly, in person or through the <Form />. Please say what happened and what you would like to see changed.</p>
       <h2>What happens next</h2>
-      <p>[Owner to confirm how quickly complaints are acknowledged and answered, and how they are recorded.] Mihaela will look into the concern, reply to you in writing, and tell you what she has done.</p>
+      <p>[Owner to confirm how quickly complaints are acknowledged and answered, and how they are recorded.] We will look into the concern, reply to you in writing, and tell you what we have done.</p>
       <h2>Contacting Ofsted</h2>
-      <p>{site.ofsted.statement} If you are not satisfied, or you have a concern about a child’s safety or welfare, you can contact Ofsted at any time. Their contact details are on <Ext href="https://www.gov.uk/government/organisations/ofsted">GOV.UK</Ext>. You can also check the registration on <Ext href={site.ofsted.searchUrl}>Ofsted’s website</Ext>.</p>
+      <p>Kids Castle’s registration with Ofsted is described on the <Link to="/about#registration">About page</Link>. If you are not satisfied, or you have a concern about a child’s safety or welfare, you can contact Ofsted at any time. Their contact details are on <Ext href="https://www.gov.uk/government/organisations/ofsted">GOV.UK</Ext>. You can also check the registration on <Ext href={site.ofsted.searchUrl}>Ofsted’s website</Ext>.</p>
       <p>If you think a child is at immediate risk of harm, call 999.</p>
       <h2>Data protection complaints</h2>
       <p>Complaints about how we use personal information are covered in the <Link to="/privacy">Privacy Notice</Link>.</p>
@@ -167,7 +166,7 @@ export function BookingTerms() {
     <Legal title="Childcare Booking Terms (draft)" updated={UPDATED} draft>
       <p>These draft terms would apply between Mihaela Oliva (trading as Kids Castle) and the parent or carer who books childcare. They are not in force until Mihaela has approved them, filled in the bracketed items and had them reviewed by a UK legal professional. No fees or policies have been invented here.</p>
       <h2>1. The service</h2>
-      <p>Mihaela provides nanny and babysitting care for children aged {site.ages} in the family’s own home. {site.ofsted.statement}</p>
+      <p>Kids Castle provides nanny and babysitting care for children aged {site.ages} in the family’s own home.</p>
       <h2>2. Booking arrangements</h2>
       <p>Care is arranged directly with Mihaela after an enquiry. Days, hours and routines are agreed with the parent before care begins. Nothing is a booking until Mihaela has confirmed it.</p>
       <Own>how bookings are confirmed (email, message, signed form) and whether a trial session is offered.</Own>

@@ -1,69 +1,74 @@
-import { Link } from 'react-router-dom';
-import { Arrow, Reveal, Words } from '../components/Motion';
+import { Arrow, Reveal } from '../components/Motion';
 import { NameBlocks } from '../components/Blocks';
-import { ReviewCard, leadReviews } from '../components/Reviews';
 import { Cutout } from '../components/Cutout';
 import { Cta } from '../components/Cta';
-import { site, why } from '../data/site';
+import { Link } from 'react-router-dom';
+import { alongside, site, training, why } from '../data/site';
 
 export default function About() {
   return (
     <>
-      <section className="page-head page-head--about" aria-labelledby="h1">
-        <div className="wrap">
-          <p className="eyebrow">About Mihaela</p>
-          <h1 id="h1" className="h1-xl">Hello, I’m <em className="mark mark--sun">Mihaela.</em></h1>
-          <NameBlocks />
+      <section className="page-head" aria-labelledby="h1">
+        <div className="wrap page-head-grid">
+          <div>
+            <h1 id="h1" className="h1-xl">About <em className="mark mark--sun">Kids Castle.</em></h1>
+            <p className="lead">Kids Castle Daycare &amp; Home Nursery provides personal nanny and babysitting care for families across London, for children from {site.ages}.</p>
+          </div>
+          <Cutout name="girl" w={900} h={750} className="art-head art-head--girl" />
         </div>
       </section>
 
-      <section className="section" aria-labelledby="who-title">
-        <div className="wrap about-grid">
-          <Reveal className="about-main">
-            {/* OWNER-APPROVAL: only confirmed facts are used. Add personal story, experience and qualifications in her own words once she supplies them. */}
-            <h2 id="who-title" className="h-section">The person behind Kids Castle.</h2>
-            <p className="lead">Kids Castle is run personally by Mihaela Oliva, who provides personal nanny and babysitting care for children from 6 months to 10 years.</p>
-            <p>Mihaela works independently and is the only childcare provider. There is no team or agency behind the name: when you enquire, you are speaking to the person who will care for your children.</p>
-            <p>Care takes place in your own home, with days, hours and routines agreed with you before anything begins.</p>
-            <p><Link to="/contact" className="btn btn--tangerine">Enquire about childcare<Arrow /></Link></p>
+      <section className="section section--tight" aria-labelledby="story-title">
+        <div className="wrap story">
+          <Reveal className="story-main">
+            {/* OWNER-APPROVAL: draft copy using only confirmed facts. No history, experience or philosophy has been invented. */}
+            <h2 id="story-title" className="h-section">Care that fits around your family.</h2>
+            <p className="lead">Our care takes place in your own home, so your children stay in the place they know best.</p>
+            <p>We offer nanny care, babysitting, evening and weekend care, full-day childcare and sibling care. Days, hours and routines are talked through and agreed with you before anything begins, and rates are discussed individually because every family’s needs are different.</p>
+            <p><Link to="/services" className="textlink">See our services<Arrow /></Link></p>
           </Reveal>
-          <Reveal className="about-side" delay={0.1}>
-            <Cutout name="girl" w={900} h={750} className="art-about" />
+          <Reveal className="owner-note" delay={0.1}>
+            <NameBlocks />
+            <p className="hello">Hello, I’m Mihaela, the owner of Kids Castle.</p>
+            <p>I started Kids Castle to give families personal, relaxed childcare in the comfort of their own home.</p>
           </Reveal>
         </div>
       </section>
 
-      <section className="section section--tint" aria-labelledby="work-title">
-        <div className="wrap">
-          <h2 id="work-title" className="h-section"><Words text="Working with one carer." /></h2>
-          <ul className="why-list why-list--wide">
-            {why.map((w, i) => (
-              <li key={w.title}><span className="why-n" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span><div><h3>{w.title}</h3><p>{w.text}</p></div></li>
-            ))}
+      <section className="section" aria-labelledby="why-title">
+        <div className="wrap why">
+          <h2 id="why-title" className="h-section">What it is like to work with us.</h2>
+          <ul className="why-list">
+            {why.map((w, i) => (<li key={w.title}><span className="why-n" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span><div><h3>{w.title}</h3><p>{w.text}</p></div></li>))}
           </ul>
         </div>
       </section>
 
-      <section className="section" aria-labelledby="reg-title">
-        <div className="wrap reg">
+      <section className="section section--tint" aria-labelledby="train-title">
+        <div className="wrap train">
+          {/* OWNER-APPROVAL: taken from Mihaela's own public flyer; certificates to be seen before launch. */}
           <div>
-            <p className="eyebrow">Registration</p>
-            <h2 id="reg-title" className="h-section">Registered with Ofsted.</h2>
+            <h2 id="train-title" className="h-section">Training behind the care.</h2>
+            <p className="lead">Mihaela’s training, as she lists it:</p>
+            <ul className="tick-list">{training.map((t) => <li key={t}>{t}</li>)}</ul>
           </div>
           <div>
-            <p className="lead">{site.ofsted.statement}</p>
-            <p>Registered on {site.ofsted.registered}. This is a registration, not an inspection grade. You can look up the registration on <a className="textlink" href={site.ofsted.searchUrl} target="_blank" rel="noreferrer">Ofsted’s website<span className="visually-hidden"> (opens in a new tab)</span></a> using the number above.</p>
+            <h3 className="h-small">Alongside care, sessions can include</h3>
+            <ul className="tick-list tick-list--soft">{alongside.map((t) => <li key={t}>{t}</li>)}</ul>
+            <p className="note-weekend">Currently welcoming enquiries for <strong>weekend</strong> care.</p>
           </div>
         </div>
       </section>
 
-      <section className="section reviews-band" aria-labelledby="say-title">
-        <div className="wrap">
-          <div className="sec-head sec-head--row">
-            <h2 id="say-title" className="h-section"><Words text="What parents say." /></h2>
-            <Link to="/reviews" className="textlink">All {site.google.count} reviews<Arrow /></Link>
+      <section className="band-photo" aria-hidden="true"><img src="/photos/pencils.webp" alt="" width={1200} height={900} loading="lazy" decoding="async" /></section>
+
+      <section className="section" id="registration" aria-labelledby="reg-title">
+        <div className="wrap reg">
+          <h2 id="reg-title" className="h-section">Registration.</h2>
+          <div>
+            <p className="lead">{site.ofsted.statement}</p>
+            <p>Registered on {site.ofsted.registered}. This is a registration, not an inspection grade. You can look it up on <a className="textlink" href={site.ofsted.searchUrl} target="_blank" rel="noreferrer">Ofsted’s website<span className="visually-hidden"> (opens in a new tab)</span></a> using the number above.</p>
           </div>
-          <div className="rev-trio">{leadReviews.map((r) => <ReviewCard key={r.id} r={r} />)}</div>
         </div>
       </section>
       <Cta />

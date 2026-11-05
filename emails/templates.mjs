@@ -25,7 +25,7 @@ function button(href, label) {
 }
 
 function layout({ preheader, heading, body, siteUrl, address, footerNote, art = 'teddy', sub = '' }) {
-  const logo = `${siteUrl}/brand/05-wordmark-1024.png`;
+  const logo = `${siteUrl}/brand/13-wordmark-descriptor-1024.png`;
   const artSrc = `${siteUrl}/art/email-${art}.png`;
   return `<!doctype html>
 <html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light only"><meta name="supported-color-schemes" content="light only"><title>${esc(heading)}</title></head>
@@ -33,7 +33,7 @@ function layout({ preheader, heading, body, siteUrl, address, footerNote, art = 
 <div style="display:none;max-height:0;overflow:hidden;opacity:0;color:transparent">${esc(preheader)}&#8199;&#847;&#8199;&#847;&#8199;&#847;</div>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#F6EBD3"><tr><td align="center" style="padding:24px 12px">
   <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:100%;max-width:600px;background:#ffffff;border:3px solid ${C.ink};border-radius:24px;overflow:hidden">
-    <tr><td style="background:${C.paper};padding:22px 28px;border-bottom:3px solid ${C.ink}"><img src="${esc(logo)}" width="200" alt="Kids Castle" style="display:block;width:200px;max-width:100%;height:auto;border:0"></td></tr>
+    <tr><td style="background:${C.paper};padding:22px 28px;border-bottom:3px solid ${C.ink}"><img src="${esc(logo)}" width="260" alt="Kids Castle Daycare &amp; Home Nursery" style="display:block;width:260px;max-width:100%;height:auto;border:0"></td></tr>
     <tr><td style="background:${C.sun};padding:0 0 0 28px;border-bottom:3px solid ${C.ink}">
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>
         <td valign="middle" style="padding:30px 8px 30px 0"><h1 style="margin:0;font:800 34px/1.05 ${FONT};letter-spacing:-1px;color:${C.ink}">${esc(heading)}</h1>${sub ? `<p style="margin:12px 0 0;font:600 16px/1.45 ${FONT};color:${C.ink}">${esc(sub)}</p>` : ''}</td>
@@ -42,7 +42,7 @@ function layout({ preheader, heading, body, siteUrl, address, footerNote, art = 
     </td></tr>
     <tr><td style="padding:28px 28px 32px;font:400 16px/1.6 ${FONT};color:${C.ink}">${body}</td></tr>
     <tr><td style="background:${C.paper};padding:22px 28px;border-top:3px solid ${C.ink};font:400 13px/1.6 ${FONT};color:${C.muted}">
-      <strong style="color:${C.ink}">Kids Castle</strong><br>Nanny &amp; babysitting services in London &middot; Mihaela Oliva, registered with Ofsted as a home childcarer (2861033)
+      <strong style="color:${C.ink}">Kids Castle Daycare &amp; Home Nursery</strong><br>Nanny &amp; babysitting services in London
       ${footerNote ? `<br><br>${footerNote}` : ''}
       <br><br><a href="${esc(siteUrl)}/privacy" style="color:${C.teal}">Privacy notice</a>
     </td></tr>
@@ -59,13 +59,13 @@ export function parentConfirmation(d, { siteUrl = '', address = '' } = {}) {
   const body = `<p style="margin:0 0 14px">Hi ${first},</p>
 <p style="margin:0 0 6px;font:800 18px ${FONT}">What you sent us</p>${table(d)}
 <p style="margin:22px 0 6px;font:800 18px ${FONT}">What happens next</p>
-<ol style="margin:0;padding-left:20px"><li style="margin-bottom:6px">Mihaela reads your enquiry and checks her availability.</li><li style="margin-bottom:6px">She replies to talk through what your family needs, including hours and rates.</li><li>If it is a good fit, you agree the arrangement together before care begins.</li></ol>
-<p style="margin:18px 0 0;color:${C.muted};font-size:14px">Nothing is agreed until you and Mihaela have spoken.</p>
+<ol style="margin:0;padding-left:20px"><li style="margin-bottom:6px">We read your enquiry and check availability.</li><li style="margin-bottom:6px">We reply to talk through what your family needs, including hours and rates.</li><li>If it is a good fit, we agree the arrangement together before care begins.</li></ol>
+<p style="margin:18px 0 0;color:${C.muted};font-size:14px">Nothing is agreed until we have spoken.</p>
 ${button(`${siteUrl}/services`, 'See our services')}`;
   return {
     subject: 'We have your enquiry | Kids Castle',
-    html: layout({ preheader: 'Thanks for your enquiry. Here is what you sent us and what happens next.', heading: 'We have your enquiry', sub: 'Thanks for getting in touch. Mihaela will reply to you directly.', art: 'teddy', body, siteUrl, address, footerNote: 'You are receiving this because you sent an enquiry through our website. If this was not you, you can ignore this email.' }),
-    text: `Hi ${(d.name || '').split(' ')[0] || 'there'},\n\nThank you for getting in touch. Mihaela has your enquiry and will reply to you directly.\n\nWHAT YOU SENT US\n${plainRows(d)}\n\nWHAT HAPPENS NEXT\n1. Mihaela reads your enquiry and checks her availability.\n2. She replies to talk through what your family needs, including hours and rates.\n3. If it is a good fit, you agree the arrangement together before care begins.\n\nNothing is agreed until you and Mihaela have spoken.\n\nKids Castle, nanny & babysitting services\n${siteUrl}/privacy`,
+    html: layout({ preheader: 'Thanks for your enquiry. Here is what you sent us and what happens next.', heading: 'We have your enquiry', sub: 'Thanks for getting in touch. We will reply to you directly.', art: 'teddy', body, siteUrl, address, footerNote: 'You are receiving this because you sent an enquiry through our website. If this was not you, you can ignore this email.' }),
+    text: `Hi ${(d.name || '').split(' ')[0] || 'there'},\n\nThank you for getting in touch. We have your enquiry and will reply to you directly.\n\nWHAT YOU SENT US\n${plainRows(d)}\n\nWHAT HAPPENS NEXT\n1. We read your enquiry and check availability.\n2. We reply to talk through what your family needs, including hours and rates.\n3. If it is a good fit, we agree the arrangement together before care begins.\n\nNothing is agreed until we have spoken.\n\nKids Castle Daycare & Home Nursery\n${siteUrl}/privacy`,
   };
 }
 
@@ -80,7 +80,7 @@ ${d.email ? button(`mailto:${d.email}?subject=${encodeURIComponent('Your enquiry
   };
 }
 
-/** Manual follow-up for Mihaela to send when they need more detail. {placeholders} are filled in by hand. */
+/** Manual follow-up to send when they need more detail. {placeholders} are filled in by hand. */
 export function followUp(d, { siteUrl = '', address = '' } = {}) {
   const first = esc((d.name || '').split(' ')[0] || 'there');
   const body = `<p style="margin:0 0 14px">Hi ${first},</p>
@@ -90,7 +90,7 @@ export function followUp(d, { siteUrl = '', address = '' } = {}) {
   return {
     subject: 'A little more detail, please | Kids Castle',
     html: layout({ preheader: 'A few quick questions so we can check availability.', heading: 'A little more detail', sub: 'A few quick questions so we can check availability.', art: 'teddy', body, siteUrl, address, footerNote: 'You are receiving this because you sent an enquiry through our website.' }),
-    text: `Hi ${(d.name || '').split(' ')[0] || 'there'},\n\nThanks again for your enquiry about ${d.careType}. To check availability properly, could you tell us:\n- The days and times you would need care\n- Your children's ages\n- Your preferred start date\n\nJust reply to this email and Mihaela will pick it up from there.\n\nKids Castle`,
+    text: `Hi ${(d.name || '').split(' ')[0] || 'there'},\n\nThanks again for your enquiry about ${d.careType}. To check availability properly, could you tell us:\n- The days and times you would need care\n- Your children's ages\n- Your preferred start date\n\nJust reply to this email and we will pick it up from there.\n\nKids Castle Daycare & Home Nursery`,
   };
 }
 

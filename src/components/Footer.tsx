@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
 import { Logo } from './Logo';
+import { FacebookIcon, GoogleIcon } from './Icons';
 import { nav, site } from '../data/site';
 
 const legal: [string, string][] = [
-  ['Privacy Notice', '/privacy'], ['Cookie Notice', '/cookies'], ['Terms of Use', '/terms'],
-  ['Accessibility', '/accessibility'], ['Complaints', '/complaints'], ['Booking Terms (draft)', '/booking-terms'],
+  ['Privacy Notice', '/privacy'], ['Cookie Notice', '/cookies'], ['Terms of Use', '/terms'], ['Accessibility', '/accessibility'], ['Complaints', '/complaints'],
 ];
 
 export function Footer() {
@@ -13,9 +13,12 @@ export function Footer() {
       <div className="wrap">
         <div className="footer-grid">
           <div className="footer-brand">
-            <Link to="/" aria-label="Kids Castle home"><Logo variant="lockup" /></Link>
-            <p className="footer-pos">{site.descriptor}</p>
+            <Link to="/" aria-label="Kids Castle Daycare & Home Nursery, home"><Logo variant="nav" /></Link>
             <p>{site.intro}</p>
+            <ul className="social" aria-label="Find us online">
+              <li><a href={site.facebook} target="_blank" rel="noreferrer" aria-label="Kids Castle on Facebook (opens in a new tab)"><FacebookIcon /></a></li>
+              <li><a href={site.google.url} target="_blank" rel="noreferrer" aria-label="Kids Castle on Google (opens in a new tab)"><GoogleIcon /></a></li>
+            </ul>
           </div>
           <div className="footer-cols">
             <div>
@@ -25,10 +28,9 @@ export function Footer() {
             <div>
               <h2 className="footer-h">Get in touch</h2>
               <ul>
-                <li><Link to="/contact">Enquiry form</Link></li>
-                <li><a href={`mailto:${site.contact.email}`}>{site.contact.email}</a></li>
-                <li><a href={site.google.url} target="_blank" rel="noreferrer">Google reviews<span className="visually-hidden"> (opens in a new tab)</span></a></li>
-                <li><a href={site.social.facebook} target="_blank" rel="noreferrer">Facebook<span className="visually-hidden"> (opens in a new tab)</span></a></li>
+                <li><Link to="/contact">Send an enquiry</Link></li>
+                <li><a href={`tel:${site.phone.tel}`}>Call {site.phone.display}</a></li>
+                <li><a href={site.phone.whatsapp} target="_blank" rel="noreferrer">WhatsApp<span className="visually-hidden"> (opens in a new tab)</span></a></li>
               </ul>
             </div>
             <div>
@@ -37,12 +39,8 @@ export function Footer() {
             </div>
           </div>
         </div>
-        <p className="footer-reg">
-          Mihaela Oliva is registered with Ofsted as a home childcarer on the voluntary part of the Childcare Register. Registration number:{' '}
-          <a href={site.ofsted.searchUrl} target="_blank" rel="noreferrer">{site.ofsted.number}<span className="visually-hidden"> (opens Ofsted’s search in a new tab)</span></a>.
-        </p>
         <div className="footer-bottom">
-          <span>© {new Date().getFullYear()} {site.legalName}</span>
+          <span>© {new Date().getFullYear()} {site.fullName}</span>
           <span>Nanny &amp; babysitting in London</span>
         </div>
       </div>

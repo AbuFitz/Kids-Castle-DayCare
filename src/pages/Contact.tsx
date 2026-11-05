@@ -4,8 +4,8 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Arrow } from '../components/Motion';
+import { PhoneIcon, WhatsAppIcon } from '../components/Icons';
 import { Cutout } from '../components/Cutout';
-import { Trust } from '../components/Trust';
 import { site } from '../data/site';
 
 const careTypes = ['Nanny care', 'Babysitting', 'Evening & weekend care', 'Full-day childcare', 'Sibling care', 'Not sure yet'] as const;
@@ -60,10 +60,8 @@ export default function Contact() {
     <>
       <section className="page-head" aria-labelledby="h1">
         <div className="wrap">
-          <p className="eyebrow">Contact</p>
           <h1 id="h1" className="h1-xl">Let’s <em className="mark mark--sun">talk.</em></h1>
-          <p className="lead">Tell Mihaela about your family and the care you need. She will reply to you directly.</p>
-          <Trust />
+          <p className="lead">Tell us about your family and the care you need. We will reply to you directly.</p>
         </div>
       </section>
       <section className="section section--tight">
@@ -71,10 +69,10 @@ export default function Contact() {
           <div className="form-card">
             {result ? (
               <div className="done" role="status">
-                {result.kind === 'sent' && (<><h2 ref={heading} tabIndex={-1}>Thank you, your enquiry has been sent.</h2><p>Mihaela will reply to you directly at the email address you gave. A confirmation copy is on its way to you.</p><Link to="/" className="btn btn--ink">Back to the home page<Arrow /></Link></>)}
-                {result.kind === 'not-connected' && (<><h2 ref={heading} tabIndex={-1}>Your enquiry has not been sent.</h2><p>The enquiry form is not connected to an inbox yet, so nothing has reached Mihaela. Please email <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a> instead. Here is what you entered:</p><pre>{keep()}</pre><button type="button" className="btn btn--ink" onClick={() => setResult(null)}>Back to the form</button></>)}
-                {result.kind === 'busy' && (<><h2 ref={heading} tabIndex={-1}>Too many attempts.</h2><p>Please wait a little and try again, or email <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>. Your enquiry has not been sent.</p><button type="button" className="btn btn--ink" onClick={() => setResult(null)}>Back to the form</button></>)}
-                {result.kind === 'error' && (<><h2 ref={heading} tabIndex={-1}>Something went wrong.</h2><p>Your enquiry has not been sent. Nothing you typed has been lost: please try again, or email <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>.</p><button type="button" className="btn btn--ink" onClick={() => setResult(null)}>Back to the form</button></>)}
+                {result.kind === 'sent' && (<><h2 ref={heading} tabIndex={-1}>Thank you, your enquiry has been sent.</h2><p>We will reply to you directly at the email address you gave. A confirmation copy is on its way to you.</p><Link to="/" className="btn btn--ink">Back to the home page<Arrow /></Link></>)}
+                {result.kind === 'not-connected' && (<><h2 ref={heading} tabIndex={-1}>Your enquiry has not been sent.</h2><p>The enquiry form is not connected yet, so nothing has reached us. Please try again a little later. Here is what you entered:</p><pre>{keep()}</pre><button type="button" className="btn btn--ink" onClick={() => setResult(null)}>Back to the form</button></>)}
+                {result.kind === 'busy' && (<><h2 ref={heading} tabIndex={-1}>Too many attempts.</h2><p>Please wait a little and try again. Your enquiry has not been sent.</p><button type="button" className="btn btn--ink" onClick={() => setResult(null)}>Back to the form</button></>)}
+                {result.kind === 'error' && (<><h2 ref={heading} tabIndex={-1}>Something went wrong.</h2><p>Your enquiry has not been sent. Nothing you typed has been lost: please try again.</p><button type="button" className="btn btn--ink" onClick={() => setResult(null)}>Back to the form</button></>)}
               </div>
             ) : (
               <form onSubmit={handleSubmit(onSubmit)} noValidate aria-label="Childcare enquiry">
@@ -95,7 +93,7 @@ export default function Contact() {
                   <div className="field"><label htmlFor="email">Email</label><input id="email" className="input" type="email" autoComplete="email" aria-invalid={inv('email')} aria-describedby="email-err" {...register('email')} /><E k="email" /></div>
                 </div>
                 <div className="field"><label htmlFor="phone">Phone <span className="opt">(optional)</span></label><input id="phone" className="input" type="tel" autoComplete="tel" aria-invalid={inv('phone')} aria-describedby="phone-err" {...register('phone')} /><E k="phone" /></div>
-                <div className="field"><label htmlFor="message">Anything else? <span className="opt">(optional)</span></label><textarea id="message" className="input" aria-describedby="message-hint message-err" {...register('message')} /><span id="message-hint" className="hint">Please don’t include medical or other sensitive details here. Mihaela can ask about those later if needed.</span><E k="message" /></div>
+                <div className="field"><label htmlFor="message">Anything else? <span className="opt">(optional)</span></label><textarea id="message" className="input" aria-describedby="message-hint message-err" {...register('message')} /><span id="message-hint" className="hint">Please don’t include medical or other sensitive details here. We can ask about those later if needed.</span><E k="message" /></div>
                 <div className="field">
                   <label className="consent"><input type="checkbox" aria-invalid={inv('consent')} aria-describedby="consent-err" {...register('consent')} /><span>I understand Kids Castle will use these details to reply to my enquiry, as explained in the <Link to="/privacy">Privacy Notice</Link>.</span></label>
                   <E k="consent" />
@@ -107,9 +105,10 @@ export default function Contact() {
           </div>
           <aside className="contact-side" aria-label="Other ways to get in touch">
             <Cutout name="family" w={900} h={592} className="art-contact" />
-            <h2 className="h-small">Prefer to email?</h2>
-            <p><a className="textlink" href={`mailto:${site.contact.email}`}>{site.contact.email}</a></p>
-            <p className="fine">Care takes place in your own home. Mihaela works independently and replies to every enquiry herself.</p>
+            <h2 className="h-small">Prefer to call?</h2>
+            <p className="call"><a href={`tel:${site.phone.tel}`}><PhoneIcon />{site.phone.display}</a></p>
+            <p><a className="btn btn--wa" href={site.phone.whatsapp} target="_blank" rel="noreferrer"><WhatsAppIcon />Message us on WhatsApp<span className="visually-hidden"> (opens in a new tab)</span></a></p>
+            <p className="fine">Or send the form and we will reply to talk through availability, hours and rates. Care takes place in your own home.</p>
           </aside>
         </div>
       </section>

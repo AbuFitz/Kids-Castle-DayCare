@@ -21,7 +21,7 @@ ok('two emails (business + parent)', sent.length === 2 && sent[0].to === 'inbox@
 ok('duplicate submissionId is not sent twice', (await call(good, 'POST', '7.7.7.8')).json.duplicate === true && sent.length === 2);
 ok('reply_to is the parent', sent[0].reply_to === 'parent@example.com');
 ok('user input is escaped in HTML', !sent[0].html.includes('<script>') && sent[0].html.includes('&lt;script&gt;') && !sent[0].html.includes('<b>Parent'));
-ok('logo uses SITE_URL', sent[0].html.includes('https://example.com/brand/05-wordmark-1024.png'));
+ok('logo uses SITE_URL', sent[0].html.includes('https://example.com/brand/13-wordmark-descriptor-1024.png'));
 globalThis.fetch = async () => ({ ok: false, status: 500 });
 ok('502 when provider fails', (await call({ ...good, submissionId: 'zzzzzzzz9999' }, 'POST', '8.8.8.8')).code === 502);
 for (let i = 0; i < 7; i++) await call({ ...good, submissionId: 'rl' + i + '123456789' }, 'POST', '9.9.9.9');

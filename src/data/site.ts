@@ -5,18 +5,17 @@
  */
 export const site = {
   name: 'Kids Castle',
-  /** Public-facing positioning, as confirmed by the owner. */
-  descriptor: 'Nanny & Babysitting Services',
-  /** Business name as registered with Google; used in legal documents and the footer only. */
-  legalName: 'Kids Castle Daycare & Home Nursery',
+  /** Registered trading name: used for the logo, titles and legal documents. */
+  fullName: 'Kids Castle Daycare & Home Nursery',
+  /** What is actually offered: the descriptor for services, never implying premises-based care. */
+  descriptor: 'Nanny & babysitting services',
   tagline: 'Little moments. Big beginnings.',
   intro: 'Warm, personal childcare in the comfort of your own home. Caring for little ones from 6 months to 10 years.',
-  provider: 'Mihaela Oliva',
+  owner: 'Mihaela Oliva',
   ages: '6 months to 10 years',
-  contact: { phone: null as string | null, email: '0998.kidscastle@gmail.com' },
+  /** Enquiries: the form, a business phone number and WhatsApp on that number. No email address is published. */
   formEndpoint: '/api/enquiry',
-  /** Registered address, used in the legal documents only. Childcare at this address is awaiting clarification from Ofsted and is not advertised. */
-  registeredAddress: ['Flat 16 Montgomery Lodge', '3 Cleveland Grove', 'Bethnal Green', 'London E1 4XQ', 'United Kingdom'],
+  phone: { display: '07467 500497', tel: '+447467500497', whatsapp: 'https://wa.me/447467500497?text=Hello%20Kids%20Castle%2C%20I%27d%20like%20to%20ask%20about%20childcare.' },
   ofsted: {
     number: '2861033',
     registered: '14 July 2026',
@@ -25,8 +24,10 @@ export const site = {
     searchUrl: 'https://reports.ofsted.gov.uk/',
     statement: 'Mihaela Oliva is registered with Ofsted as a home childcarer on the voluntary part of the Childcare Register. Registration number: 2861033.',
   },
-  google: { rating: 5, count: 9, url: 'https://share.google/rJ2DfDpKNA2QhcTUC' },
-  social: { facebook: 'https://www.facebook.com/people/Kids-Castle-Daycare/61556896238767/' },
+  google: { rating: 5, url: 'https://share.google/rJ2DfDpKNA2QhcTUC' },
+  facebook: 'https://www.facebook.com/people/Kids-Castle-Daycare/61556896238767/',
+  /** Not published anywhere on the site: kept for the owner's records only. */
+  private: { registeredAddress: 'Flat 16 Montgomery Lodge, 3 Cleveland Grove, Bethnal Green, London E1 4XQ', email: '0998.kidscastle@gmail.com' },
   /** Rates are NOT published until the owner approves them. Kept here for later use; nothing reads this on the public site. */
   unapprovedRates: [
     { label: 'Children under two', value: 'From £25', unit: 'per hour, per child' },
@@ -34,15 +35,43 @@ export const site = {
     { label: 'Two siblings', value: '£35', unit: 'per hour in total' },
     { label: 'Full day (8 hours)', value: '£180', unit: 'per 8-hour day' },
   ],
-  ratesNote: 'Childcare rates depend on your family’s requirements, the ages of the children and the hours of care needed. Get in touch to discuss your arrangement.',
-  areaNote: 'London, including North London',
-  areas: ['Islington', 'Highbury', 'Angel', 'Stoke Newington', 'Finsbury Park', 'Holloway', 'Crouch End', 'Camden borders'],
+  ratesNote: 'Childcare rates depend on your family’s requirements, the ages of the children and the hours of care needed. Send an enquiry to talk through your arrangement.',
 };
+
+/** From Mihaela's own public flyer (OWNER-APPROVAL before launch: ask for certificates). Listed as she wrote them. */
+export const training = [
+  'Preschool Education: The Reggio Emilia Approach (Certificate)',
+  'Advanced Training in Child Counselling (QLS Level 6)',
+  'Child Development & Brain Development (Certificate)',
+  'Safeguarding (Child Protection Training)',
+  'Designated Safeguarding Lead (DSL)',
+  'Prevent Awareness (UK Government)',
+];
+/** Also from her flyer: what a session can include. */
+export const alongside = [
+  'Planning fun and engaging activities',
+  'Supporting early learning and development',
+  'Healthy meals and snacks',
+  'Outdoor play and creative play',
+  'Gentle, positive guidance and routine',
+];
+
+/** Areas covered, with real coordinates so the illustrative map places them correctly relative to each other. */
+export const areas = [
+  { name: 'Angel', lat: 51.5322, lon: -0.1058, tone: 'tangerine', label: 'below' },
+  { name: 'Islington', lat: 51.5362, lon: -0.1031, tone: 'teal', label: 'right' },
+  { name: 'Camden borders', lat: 51.539, lon: -0.143, tone: 'sky', label: 'right' },
+  { name: 'Highbury', lat: 51.546, lon: -0.103, tone: 'sun', label: 'right' },
+  { name: 'Holloway', lat: 51.553, lon: -0.114, tone: 'mint', label: 'left' },
+  { name: 'Finsbury Park', lat: 51.564, lon: -0.106, tone: 'tangerine', label: 'left' },
+  { name: 'Stoke Newington', lat: 51.564, lon: -0.073, tone: 'sky', label: 'below' },
+  { name: 'Crouch End', lat: 51.58, lon: -0.123, tone: 'teal', label: 'right' },
+] as const;
 
 export const nav = [
   { to: '/', label: 'Home' },
   { to: '/services', label: 'Our Services' },
-  { to: '/about', label: 'About Mihaela' },
+  { to: '/about', label: 'About Us' },
   { to: '/reviews', label: 'Reviews' },
   { to: '/contact', label: 'Contact' },
 ];
@@ -58,30 +87,35 @@ export const services: Service[] = [
 ];
 
 export const why = [
-  { title: 'Direct communication', text: 'You speak to Mihaela herself, before and after every booking. No agency in between.' },
+  { title: 'Direct communication', text: 'You talk straight to the people looking after your children, before and after every booking.' },
   { title: 'A familiar home', text: 'Your children stay in their own surroundings, with their own toys, routines and bedtime.' },
-  { title: 'Personal attention', text: 'One carer getting to know your family, rather than a rota of different faces.' },
-  { title: 'Arranged with you', text: 'Days, hours and routines are talked through and agreed with you before care begins.' },
+  { title: 'Fits your routine', text: 'Days, hours and routines are talked through and agreed with you before care begins.' },
+  { title: 'No agency in between', text: 'You deal with Kids Castle directly, so arrangements stay simple and personal.' },
 ];
 
 /** PROVISIONAL process outline (OWNER-APPROVAL): describes how an enquiry is handled, not a timetable. */
 export const steps = [
-  { title: 'Send an enquiry', text: 'Tell Mihaela the type of care, your children’s ages, your area and when you need care.' },
-  { title: 'Talk it through', text: 'Mihaela replies to discuss availability and what your family needs.' },
+  { title: 'Send an enquiry', text: 'Tell us the type of care, your children’s ages, your area and when you need care.' },
+  { title: 'We talk it through', text: 'We reply to discuss availability and what your family needs.' },
   { title: 'Agree the arrangement', text: 'Hours, routines and rates are agreed with you before anything starts.' },
+];
+
+/** Generic, publicly available good practice for choosing any childcare. Not a claim about Kids Castle. */
+export const beforeYouBook = [
+  { title: 'Check the registration', text: 'Ask any provider for their Ofsted registration number and look it up on Ofsted’s website.' },
+  { title: 'Talk through a typical day', text: 'Share your routines, mealtimes, naps and bedtimes so everyone expects the same thing.' },
+  { title: 'Agree the practical details', text: 'Hours, rates, notice and who to call in an emergency are best settled in writing before the first session.' },
+  { title: 'Meet and ask questions', text: 'A short conversation first helps you and your children feel comfortable.' },
 ];
 
 export const faqs = [
   { q: 'Where does the childcare take place?', a: 'In your own home. Care at Mihaela’s own address is awaiting clarification from Ofsted and is not currently offered.' },
-  { q: 'Who will look after my children?', a: 'Mihaela Oliva. She works independently and is the only childcare provider; there is no team or agency behind Kids Castle.' },
   { q: 'What ages do you care for?', a: 'Children from 6 months to 10 years old, including brothers and sisters together.' },
-  { q: 'How is Mihaela registered?', a: site_ofsted_answer() },
-  { q: 'How much does childcare cost?', a: 'Rates depend on your family’s requirements, the ages of the children and the hours of care needed. Get in touch to discuss your arrangement.' },
-  { q: 'How do I check availability?', a: 'Send an enquiry through the form or email 0998.kidscastle@gmail.com with the type of care, your children’s ages, your area and the days or hours you have in mind. Mihaela will reply to talk it through.' },
+  { q: 'How much does childcare cost?', a: 'Rates depend on your family’s requirements, the ages of the children and the hours of care needed. Send an enquiry and we will talk through your arrangement.' },
+  { q: 'How do I check availability?', a: 'Use the enquiry form with the type of care, your children’s ages, your area and the days or hours you have in mind. We will reply to talk it through.' },
+  { q: 'Do you cover my area?', a: 'We work in London, including the North London areas on the map. If you are close by but not listed, send an enquiry and ask.' },
+  { q: 'Is Kids Castle registered?', a: 'Yes, you can find our registration details on the About page.' },
 ];
-function site_ofsted_answer() {
-  return 'Mihaela Oliva is registered with Ofsted as a home childcarer on the voluntary part of the Childcare Register (registration number 2861033). This is a registration, not an inspection grade. You can check it on Ofsted’s website.';
-}
 
 /**
  * The nine Google reviews, quoted exactly as posted (spelling and punctuation kept).

@@ -2,14 +2,14 @@ import { m } from 'motion/react';
 
 const tones = ['teal', 'tangerine', 'sun', 'sky', 'mint', 'teal', 'tangerine'];
 
-/** Alphabet blocks spelling a name: a typographic stand-in for a portrait. Decorative, the text is repeated by the adjacent heading. */
-export function NameBlocks({ name = 'MIHAELA' }: { name?: string }) {
+/** Alphabet blocks spelling a name. Decorative: the adjacent heading carries the text. */
+export function NameBlocks({ name = 'MIHAELA', small = false }: { name?: string; small?: boolean }) {
   return (
-    <div className="blocks" aria-hidden="true">
+    <div className={`blocks ${small ? 'blocks--sm' : ''}`} aria-hidden="true">
       {[...name].map((ch, i) => (
         <m.span key={i} className={`block block--${tones[i % tones.length]}`}
-          initial={{ y: -24, opacity: 0, rotate: i % 2 ? 4 : -4 }} whileInView={{ y: 0, opacity: 1, rotate: i % 2 ? 2 : -2 }}
-          viewport={{ once: true }} transition={{ type: 'spring', stiffness: 140, damping: 14, delay: i * 0.06 }}>{ch}</m.span>
+          initial={{ y: -16, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} viewport={{ once: true }}
+          transition={{ type: 'spring', stiffness: 160, damping: 16, delay: i * 0.05 }}>{ch}</m.span>
       ))}
     </div>
   );

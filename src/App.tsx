@@ -4,6 +4,7 @@ import { AnimatePresence, LazyMotion, MotionConfig, domAnimation, m } from 'moti
 import { Nav } from './components/Nav';
 import { notFoundSeo, seo } from './data/seo';
 import { Footer } from './components/Footer';
+import { WhatsAppFab } from './components/WhatsAppFab';
 import Home from './pages/Home';
 const About = lazy(() => import('./pages/About'));
 const Services = lazy(() => import('./pages/Services'));
@@ -47,6 +48,7 @@ export default function App() {
         </m.main>
       </AnimatePresence>
       <Footer />
+      <WhatsAppFab />
     </MotionConfig>
     </LazyMotion>
   );

@@ -5,24 +5,24 @@ export type PageSeo = { title: string; description: string; noindex?: boolean };
 /** Per-route metadata. Titles are kept near 60 characters, descriptions under 160. */
 export const seo: Record<string, PageSeo> = {
   '/': {
-    title: 'Kids Castle | Nanny & Babysitting Services in London',
-    description: 'Warm, personal nanny and babysitting care in your own home across London, run by Mihaela Oliva. Children from 6 months to 10 years. Ofsted-registered home childcarer.',
+    title: 'Kids Castle Daycare & Home Nursery | Nanny & Babysitting in London',
+    description: 'Warm, personal nanny and babysitting care in your own home across North London. Children from 6 months to 10 years. Send an enquiry to talk through your family’s needs.',
   },
   '/services': {
-    title: 'Nanny & Babysitting Services | Kids Castle London',
-    description: 'Nanny care, babysitting, evening and weekend care, full-day childcare and sibling care in your own home. Rates depend on your family’s needs: get in touch to discuss.',
+    title: 'Nanny & Babysitting Services | Kids Castle Daycare & Home Nursery',
+    description: 'Nanny care, babysitting, evening and weekend care, full-day childcare and sibling care in your own home. Rates depend on your family’s needs: send an enquiry to discuss.',
   },
   '/about': {
-    title: 'About Mihaela Oliva | Kids Castle Nanny & Babysitting',
-    description: 'Kids Castle is run personally by Mihaela Oliva, an independent nanny registered with Ofsted as a home childcarer (2861033). Meet the person behind the care.',
+    title: 'About Kids Castle Daycare & Home Nursery | London Nanny Care',
+    description: 'Kids Castle provides personal nanny and babysitting care in the family home for children aged 6 months to 10 years. Registration details and how we work.',
   },
   '/reviews': {
-    title: 'Parent Reviews | Kids Castle Nanny & Babysitting',
-    description: 'Read what parents say about Mihaela and Kids Castle: nine Google reviews, quoted as posted, with a link to the Google Business Profile.',
+    title: 'Parent Reviews | Kids Castle Daycare & Home Nursery',
+    description: 'Read what parents say about Kids Castle, quoted exactly as posted on Google, with a link to our Google Business Profile.',
   },
   '/contact': {
-    title: 'Enquire About Childcare | Kids Castle London',
-    description: 'Send a childcare enquiry to Mihaela: type of care, your children’s ages, area and the days you need. She replies directly to talk it through.',
+    title: 'Enquire About Childcare | Kids Castle Daycare & Home Nursery',
+    description: 'Send a childcare enquiry: type of care, your children’s ages, area and the days you need. We reply directly to talk it through.',
   },
   '/privacy': { title: 'Privacy Notice | Kids Castle', description: 'How Kids Castle collects and uses the personal information you send in an enquiry.' },
   '/cookies': { title: 'Cookie Notice | Kids Castle', description: 'Kids Castle does not use cookies or tracking on this website. Here is what that means.' },
@@ -57,14 +57,14 @@ export function jsonLd(path: string, siteUrl: string) {
   const business = {
     '@type': 'ProfessionalService',
     '@id': `${siteUrl}/#business`,
-    name: 'Kids Castle',
-    alternateName: site.legalName,
+    name: site.fullName,
+    alternateName: 'Kids Castle',
     description: seo['/'].description,
     url: siteUrl || undefined,
-    email: site.contact.email,
+    telephone: site.phone.tel,
     areaServed: { '@type': 'City', name: 'London' },
     serviceType: ['Nanny care', 'Babysitting'],
-    sameAs: [site.social.facebook, site.google.url],
+    sameAs: [site.facebook, site.google.url],
     hasOfferCatalog: { '@type': 'OfferCatalog', name: 'Childcare services', itemListElement: services.map((s) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name: s.title, description: s.text } })) },
   };
   const graph: object[] = [business];

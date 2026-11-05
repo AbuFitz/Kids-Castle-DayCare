@@ -16,7 +16,7 @@ function Legal({ title, updated, children, draft = false }: { title: string; upd
         </div>
       </section>
       <section className="section section--tight">
-        <div className="wrap legal">
+        <div className="wrap"><div className="legal">
           <aside className="note note--warn" aria-label="Review status">
             <p><strong>{draft ? 'Draft for approval.' : 'Draft for owner approval.'}</strong> {draft ? 'These booking terms are a draft. Items in [square brackets] are decisions only Mihaela can make. ' : ''}This document has been prepared for Mihaela Oliva to approve and has not yet been reviewed by a UK legal professional. It should not be treated as final, or as legally certified, until it has been.</p>
           </aside>
@@ -24,7 +24,7 @@ function Legal({ title, updated, children, draft = false }: { title: string; upd
           <nav aria-label="Other legal documents" className="legal-links">
             <Link to="/privacy">Privacy Notice</Link><Link to="/cookies">Cookie Notice</Link><Link to="/terms">Terms of Use</Link><Link to="/accessibility">Accessibility</Link><Link to="/complaints">Complaints</Link>
           </nav>
-        </div>
+        </div></div>
       </section>
     </>
   );
@@ -128,7 +128,7 @@ export function Accessibility() {
         <li>The site works with a keyboard alone, and focus is always visible.</li>
         <li>Text and controls are designed for sufficient colour contrast and resize without losing content.</li>
         <li>The enquiry form has labelled fields and error messages that are announced by screen readers.</li>
-        <li>Animations are gentle, nothing moves automatically in the reviews, and animations are reduced or removed when your device is set to “reduce motion”.</li>
+        <li>The parent reviews drift slowly and stop while you hover over or tab into them. Animations are reduced or removed when your device is set to “reduce motion”, and the reviews then become a row you scroll by hand.</li>
         <li>Decorative illustrations are hidden from screen readers; meaningful images have text alternatives.</li>
       </ul>
       <h2>How it was tested</h2>

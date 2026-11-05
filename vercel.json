@@ -10,6 +10,11 @@
       "source": "/north-london-babysitting",
       "destination": "/services",
       "permanent": true
+    },
+    {
+      "source": "/reviews",
+      "destination": "/",
+      "permanent": true
     }
   ]
 }

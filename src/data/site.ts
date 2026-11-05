@@ -72,7 +72,6 @@ export const nav = [
   { to: '/', label: 'Home' },
   { to: '/services', label: 'Our Services' },
   { to: '/about', label: 'About Us' },
-  { to: '/reviews', label: 'Reviews' },
   { to: '/contact', label: 'Contact' },
 ];
 

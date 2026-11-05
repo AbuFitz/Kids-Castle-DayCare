@@ -16,10 +16,6 @@ export const seo: Record<string, PageSeo> = {
     title: 'About Kids Castle Daycare & Home Nursery | London Nanny Care',
     description: 'Kids Castle provides personal nanny and babysitting care in the family home for children aged 6 months to 10 years. Registration details and how we work.',
   },
-  '/reviews': {
-    title: 'Parent Reviews | Kids Castle Daycare & Home Nursery',
-    description: 'Read what parents say about Kids Castle, quoted exactly as posted on Google, with a link to our Google Business Profile.',
-  },
   '/contact': {
     title: 'Enquire About Childcare | Kids Castle Daycare & Home Nursery',
     description: 'Send a childcare enquiry: type of care, your children’s ages, area and the days you need. We reply directly to talk it through.',
@@ -38,6 +34,7 @@ export const indexableRoutes = Object.entries(seo).filter(([, v]) => !v.noindex)
 export const redirects: Record<string, string> = {
   '/east-london-home-nursery': '/services',
   '/north-london-babysitting': '/services',
+  '/reviews': '/',
 };
 
 const faqLd = (items: { q: string; a: string }[]) => ({

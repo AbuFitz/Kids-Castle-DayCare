@@ -3,8 +3,8 @@
 Website for Kids Castle (owner Mihaela Oliva): nanny and babysitting care in the family's own home, London. Vite + React + TypeScript, prerendered at build time, deployed on Vercel.
 
 ## Pages
-`/` Home · `/services` · `/about` · `/reviews` · `/contact` · legal: `/privacy`, `/cookies`, `/terms`, `/accessibility`, `/complaints`, `/booking-terms` (draft, `noindex`).
-The old `/east-london-home-nursery` and `/north-london-babysitting` pages were removed and 301/308-redirect to `/services` (`vercel.json`).
+`/` Home (reviews are on the home page) · `/services` · `/about` · `/contact` · legal: `/privacy`, `/cookies`, `/terms`, `/accessibility`, `/complaints`, `/booking-terms` (draft, `noindex`).
+The old `/east-london-home-nursery` and `/north-london-babysitting` pages and the separate `/reviews` page were removed; they redirect permanently to `/services` and `/` (`vercel.json`).
 
 ## Where things live
 - **`src/data/site.ts`**: every editable fact: registration wording, contact, services, "why an independent nanny", process steps, FAQs and the nine Google reviews (verbatim). Unapproved rates are kept in `unapprovedRates` and are **not** displayed anywhere.

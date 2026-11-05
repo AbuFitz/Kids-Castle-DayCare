@@ -9,7 +9,6 @@ import Home from './pages/Home';
 const About = lazy(() => import('./pages/About'));
 const Services = lazy(() => import('./pages/Services'));
 const Contact = lazy(() => import('./pages/Contact'));
-const Reviews = lazy(() => import('./pages/Reviews'));
 const legal = (name: string) => lazy(() => import('./pages/Legal').then((x) => ({ default: (x as unknown as Record<string, ComponentType>)[name] })));
 const Privacy = legal('Privacy'), Cookies = legal('Cookies'), Terms = legal('Terms'), Accessibility = legal('Accessibility'), Complaints = legal('Complaints'), BookingTerms = legal('BookingTerms');
 const NotFound = lazy(() => import('./pages/NotFound'));
@@ -35,7 +34,6 @@ export default function App() {
             <Route path="/about" element={<About />} />
             <Route path="/services" element={<Services />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/reviews" element={<Reviews />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/cookies" element={<Cookies />} />
             <Route path="/terms" element={<Terms />} />

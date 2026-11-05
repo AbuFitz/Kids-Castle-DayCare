@@ -80,13 +80,15 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section reviews-band" aria-labelledby="rev-title">
+      <section className="section reviews-band" id="reviews" aria-labelledby="rev-title">
         <div className="wrap">
           <div className="sec-head sec-head--row">
             <h2 id="rev-title" className="h-section">In parents’ own words.</h2>
-            <Link to="/reviews" className="textlink">More reviews<Arrow /></Link>
+            <a href={site.google.url} target="_blank" rel="noreferrer" className="textlink">See them on Google<span className="visually-hidden"> (opens in a new tab)</span><Arrow /></a>
           </div>
-          <ReviewMarquee items={allReviews} label="Parent reviews" />
+          <ReviewMarquee items={allReviews.slice(0, 5)} label="Parent reviews, first row" seconds={90} />
+          <ReviewMarquee items={allReviews.slice(5)} label="Parent reviews, second row" reverse seconds={80} />
+          <p className="fine">Reviews are quoted exactly as posted on Google.</p>
         </div>
       </section>
       <Cta />

@@ -35,3 +35,9 @@ No cookies, local storage, analytics or third-party scripts; fonts are self-host
 - The "areas" list and map (from earlier client material), stock photographs (Unsplash, generic objects only) and the Facebook link.
 - Booking terms, retention periods, complaints timings (marked in the legal pages), ICO data protection fee, and review of all legal pages by a UK legal professional.
 - Registered address and email are not published.
+
+## Design preview layers (agency only)
+Same two layers as the Graceful Divine Melts preview. Neither is part of the client's real site.
+- **Banner:** a green "Design preview · Created by OneSimpleSite · onesimplesite.co.uk" bar above the nav (`src/components/PreviewBanner.tsx`). Hide it with `VITE_PREVIEW_BANNER=0` at build time, or delete the component and its line in `App.tsx`.
+- **Expired notice:** on **Vercel builds**, every address shows "This preview has expired" (email hello@onesimplesite.co.uk) and the enquiry endpoint answers 410, until you add the Vercel environment variable `PREVIEW_EXPIRED=0` and redeploy. Local builds are never expired. See `scripts/expired-page.mjs`.
+- **When the demo phase ends:** delete the Vercel project, or remove both layers.

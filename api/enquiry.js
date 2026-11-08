@@ -41,6 +41,8 @@ async function send({ key, from, to, replyTo, mail }) {
 
 export default async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store');
+  // The design preview has expired (same switch as the build): the form is closed too.
+  if (process.env.VERCEL && process.env.PREVIEW_EXPIRED !== '0') return res.status(410).json({ error: 'preview_expired' });
   if (req.method !== 'POST') { res.setHeader('Allow', 'POST'); return res.status(405).json({ error: 'method_not_allowed' }); }
   const parsed = schema.safeParse(typeof req.body === 'string' ? JSON.parse(req.body || '{}') : req.body);
   if (!parsed.success) return res.status(400).json({ error: 'invalid', fields: parsed.error.issues.map((i) => i.path.join('.')) });

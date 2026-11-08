@@ -2,6 +2,7 @@ import { Suspense, lazy, useEffect, type ComponentType } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { AnimatePresence, LazyMotion, MotionConfig, domAnimation, m } from 'motion/react';
 import { Nav } from './components/Nav';
+import { PreviewBanner } from './components/PreviewBanner';
 import { notFoundSeo, seo } from './data/seo';
 import { Footer } from './components/Footer';
 import { WhatsAppFab } from './components/WhatsAppFab';
@@ -25,6 +26,7 @@ export default function App() {
     <LazyMotion features={domAnimation}>
     <MotionConfig reducedMotion="user">
       <a href="#main" className="skip">Skip to content</a>
+      <PreviewBanner />
       <Nav />
       <AnimatePresence mode="wait">
         <m.main key={location.pathname} id="main" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}>

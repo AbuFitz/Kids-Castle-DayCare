@@ -3,6 +3,7 @@
 import { mkdirSync, readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { pathToFileURL } from 'node:url';
+import { expiredHtml, isExpired } from './expired-page.mjs';
 
 const root = new URL('..', import.meta.url).pathname;
 const dist = join(root, 'dist');
@@ -46,6 +47,15 @@ for (const [path, meta] of Object.entries(seo)) {
   console.log('prerendered', path);
 }
 write('404.html', (await page('/__not-found__', notFoundSeo)));
+
+// Expired preview (Vercel builds only, unless PREVIEW_EXPIRED=0): every address shows the expired notice instead of the site.
+if (isExpired()) {
+  for (const path of Object.keys(seo)) write(path === '/' ? 'index.html' : `${path.slice(1)}/index.html`, expiredHtml);
+  write('404.html', expiredHtml);
+  write('robots.txt', 'User-agent: *\nDisallow: /\n');
+  console.warn('PREVIEW EXPIRED: every page now shows the expired notice. Set PREVIEW_EXPIRED=0 in Vercel and redeploy to show the design again.');
+  process.exit(0);
+}
 
 if (siteUrl) {
   const today = new Date().toISOString().slice(0, 10);
